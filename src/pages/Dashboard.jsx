@@ -78,6 +78,13 @@ const Dashboard = () => {
             Logout
           </button>
           <button
+            type="button"
+            onClick={() => navigate('/sites')}
+            className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition"
+          >
+            Sites
+          </button>
+          <button
             onClick={() => navigate('/records')}
             className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
           >
@@ -173,11 +180,7 @@ const Dashboard = () => {
                 )}
               </div>
             </div>
-            {materials.map((m, i) => (
-              <p key={i} className="text-sm text-gray-600">
-                {m.name} — {m.quantity} {m.unit}
-              </p>
-            ))}
+
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold"

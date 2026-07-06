@@ -38,3 +38,14 @@ export const downloadReport = async (token) => {
     responseType: 'blob',
   })
 }
+export const getSites = async (token) => {
+  return await axios.get(`${API_URL}/sites`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}
+
+export const createSite = async (data, token) => {
+  return await axios.post(`${API_URL}/sites`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}

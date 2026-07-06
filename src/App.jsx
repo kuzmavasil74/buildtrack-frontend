@@ -5,6 +5,7 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Main from './pages/Main.jsx'
 import Records from './pages/Records.jsx'
+import Sites from './pages/Sites.jsx'
 import './App.css'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/records" element={<Records />} />
+        <Route path="/sites" element={<Sites />} />
       </Routes>
     </BrowserRouter>
   )
