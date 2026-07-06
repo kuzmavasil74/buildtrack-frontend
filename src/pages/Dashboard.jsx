@@ -111,7 +111,7 @@ const Dashboard = () => {
               type="text"
               value={materialsUsed}
               onChange={(e) => setmaterialsUsed(e.target.value)}
-              placeholder="Materials Used"
+              placeholder="Materials Used (comma separated)"
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
             />
             <button
