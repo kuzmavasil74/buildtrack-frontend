@@ -11,10 +11,6 @@ export default function Records() {
   useEffect(() => {
     const token = localStorage.getItem('token')
     getRecords(token).then((res) => setRecords(res.data.records))
-  }, [])
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    getRecords(token).then((res) => setRecords(res.data.records))
     getSites(token).then((res) => setSites(res.data.sites))
   }, [])
   const getSiteName = (siteId) => {
