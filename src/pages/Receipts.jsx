@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getSites, getUploadUrl, uploadToS3 } from '../api/api.js'
+import { getSites, uploadReceipt } from '../api/api.js'
 
 export default function Receipts() {
   const navigate = useNavigate()
@@ -21,13 +21,11 @@ export default function Receipts() {
     setLoading(true)
     try {
       const token = localStorage.getItem('token')
-      const fileType = file.name.split('.').pop()
+      const formData = new FormData()
+      formData.append('receipt', file)
+      formData.append('siteId', siteId)
 
-      // 1. Отримати presigned URL
-      const { data } = await getUploadUrl({ siteId, fileType }, token)
-
-      // 2. Завантажити файл в S3
-      await uploadToS3(data.uploadUrl, file)
+      await uploadReceipt(formData, token)
 
       setSuccess(true)
       setFile(null)
