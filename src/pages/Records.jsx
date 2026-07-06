@@ -13,8 +13,9 @@ export default function Records() {
     getRecords(token).then((res) => setRecords(res.data.records))
     getSites(token).then((res) => setSites(res.data.sites))
   }, [])
+
   const getSiteName = (siteId) => {
-    const site = sites.find((s) => s.id === siteId)
+    const site = sites.find((s) => s.id === Number(siteId))
     return site ? site.name : `Site #${siteId}`
   }
   const handleDownloadReport = async () => {
