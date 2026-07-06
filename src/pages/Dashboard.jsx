@@ -124,34 +124,55 @@ const Dashboard = () => {
               placeholder="Tasks Completed (comma separated)"
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
             />
-            <input
-              type="text"
-              value={materialName}
-              onChange={(e) => setMaterialName(e.target.value)}
-              placeholder="Material Name"
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-            />
-            <input
-              type="number"
-              value={materialQty}
-              onChange={(e) => setMaterialQty(e.target.value)}
-              placeholder="Quantity"
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-            />
-            <input
-              type="text"
-              value={materialUnit}
-              onChange={(e) => setMaterialUnit(e.target.value)}
-              placeholder="Unit"
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-            />
-            <button
-              type="button"
-              onClick={addMaterial}
-              className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold"
-            >
-              Add Material
-            </button>
+            <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
+              <p className="text-sm font-semibold text-gray-600 mb-3">
+                Materials Used
+              </p>
+              <div className="flex flex-col gap-2">
+                <input
+                  type="text"
+                  value={materialName}
+                  onChange={(e) => setMaterialName(e.target.value)}
+                  placeholder="Material Name (e.g. cement)"
+                  className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 bg-white"
+                />
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    value={materialQty}
+                    onChange={(e) => setMaterialQty(e.target.value)}
+                    placeholder="Quantity"
+                    className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500 bg-white"
+                  />
+                  <input
+                    type="text"
+                    value={materialUnit}
+                    onChange={(e) => setMaterialUnit(e.target.value)}
+                    placeholder="Unit (kg, bags, pcs)"
+                    className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500 bg-white"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={addMaterial}
+                  className="bg-gray-700 text-white py-2 rounded-lg hover:bg-gray-800 transition text-sm font-semibold"
+                >
+                  + Add Material
+                </button>
+                {materials.length > 0 && (
+                  <div className="mt-1 flex flex-col gap-1">
+                    {materials.map((m, i) => (
+                      <p
+                        key={i}
+                        className="text-sm text-gray-600 bg-white border border-gray-200 rounded-lg px-3 py-1"
+                      >
+                        {m.name} — {m.quantity} {m.unit}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
             {materials.map((m, i) => (
               <p key={i} className="text-sm text-gray-600">
                 {m.name} — {m.quantity} {m.unit}
