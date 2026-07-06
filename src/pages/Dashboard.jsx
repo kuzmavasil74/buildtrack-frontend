@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { createRecord } from '../api/api.js'
+import React, { useEffect, useState } from 'react'
+import { createRecord, getSites } from '../api/api.js'
 import { useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [materialName, setMaterialName] = useState('')
   const [materialQty, setMaterialQty] = useState('')
   const [materialUnit, setMaterialUnit] = useState('')
+  const [sites, setSites] = useState([])
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -60,6 +61,10 @@ const Dashboard = () => {
     setMaterialQty('')
     setMaterialUnit('')
   }
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    getSites(token).then((res) => setSites(res.data.sites))
+  }, [])
   const logout = () => {
     localStorage.removeItem('token')
     navigate('/login')
@@ -96,13 +101,18 @@ const Dashboard = () => {
             Daily Record
           </h3>
           <form onSubmit={submit} className="flex flex-col gap-4">
-            <input
-              type="text"
+            <select
               value={siteId}
               onChange={(e) => setSiteId(e.target.value)}
-              placeholder="Construction Site Number (e.g. 1, 2, 3)"
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-            />
+            >
+              <option value="">Select Construction Site</option>
+              {sites.map((site) => (
+                <option key={site.id} value={site.id}>
+                  {site.name}
+                </option>
+              ))}
+            </select>
             <DatePicker
               selected={date}
               onChange={(date) => setDate(date)}
