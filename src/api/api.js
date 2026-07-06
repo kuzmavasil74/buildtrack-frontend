@@ -66,7 +66,9 @@ export const getUploadUrl = async (data, token) => {
 }
 
 export const uploadToS3 = async (uploadUrl, file) => {
-  return await axios.put(uploadUrl, file, {
+  return await fetch(uploadUrl, {
+    method: 'PUT',
+    body: file,
     headers: { 'Content-Type': file.type },
   })
 }
