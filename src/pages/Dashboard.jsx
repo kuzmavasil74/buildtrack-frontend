@@ -46,50 +46,76 @@ const Dashboard = () => {
     navigate('/login')
   }
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <form onSubmit={submit}>
-        <input
-          type="text"
-          value={siteId}
-          onChange={(e) => setSiteId(e.target.value)}
-          placeholder="Site ID"
-        />
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          placeholder="Date"
-        />
-        <input
-          type="number"
-          value={workersPresent}
-          onChange={(e) => setworkersPresent(e.target.value)}
-          placeholder="Workers Present"
-        />
-        <input
-          type="number"
-          value={hoursWorked}
-          onChange={(e) => sethoursWorked(e.target.value)}
-          placeholder="Hours Worked"
-        />
-        <input
-          type="text"
-          value={tasksCompleted}
-          onChange={(e) => settasksCompleted(e.target.value)}
-          placeholder="Tasks Completed"
-        />
-        <input
-          type="text"
-          value={materialsUsed}
-          onChange={(e) => setmaterialsUsed(e.target.value)}
-          placeholder="Materials Used"
-        />
-        <button type="submit">Submit</button>
-      </form>
-      <button onClick={logout}>Logout</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {loading && <p>Loading...</p>}
+    <div className="py-8 bg-gray-100 px-4 overflow-y-auto">
+      <div className="max-w-lg mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-bold text-gray-800">
+            BuildTrack Dashboard
+          </h2>
+          <button
+            onClick={logout}
+            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+          >
+            Logout
+          </button>
+        </div>
+        <div className="bg-white p-8 rounded-xl shadow-lg">
+          <h3 className="text-xl font-semibold text-gray-700 mb-6">
+            Daily Record
+          </h3>
+          <form onSubmit={submit} className="flex flex-col gap-4">
+            <input
+              type="text"
+              value={siteId}
+              onChange={(e) => setSiteId(e.target.value)}
+              placeholder="Site ID"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <input
+              type="number"
+              value={workersPresent}
+              onChange={(e) => setworkersPresent(e.target.value)}
+              placeholder="Workers Present"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <input
+              type="number"
+              value={hoursWorked}
+              onChange={(e) => sethoursWorked(e.target.value)}
+              placeholder="Hours Worked"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <input
+              type="text"
+              value={tasksCompleted}
+              onChange={(e) => settasksCompleted(e.target.value)}
+              placeholder="Tasks Completed (comma separated)"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <input
+              type="text"
+              value={materialsUsed}
+              onChange={(e) => setmaterialsUsed(e.target.value)}
+              placeholder="Materials Used"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <button
+              type="submit"
+              className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold"
+            >
+              Submit Record
+            </button>
+          </form>
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          {loading && <p className="text-gray-500 text-sm mt-2">Loading...</p>}
+        </div>
+      </div>
     </div>
   )
 }
