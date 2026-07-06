@@ -59,3 +59,14 @@ export const deleteRecord = async (id, token) => {
     headers: { Authorization: `Bearer ${token}` },
   })
 }
+export const getUploadUrl = async (data, token) => {
+  return await axios.post(`${API_URL}/receipts/upload-url`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}
+
+export const uploadToS3 = async (uploadUrl, file) => {
+  return await axios.put(uploadUrl, file, {
+    headers: { 'Content-Type': file.type },
+  })
+}
