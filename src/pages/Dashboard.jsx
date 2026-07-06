@@ -72,34 +72,32 @@ const Dashboard = () => {
   return (
     <div className="py-8 bg-gray-100 px-4 overflow-y-auto">
       <div className="max-w-lg mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-gray-800">
-            BuildTrack Dashboard
-          </h2>
+        <div className="flex justify-between items-center mb-6 gap-2">
+          <h2 className="text-lg font-bold text-gray-800">BuildTrack</h2>
           <button
             onClick={logout}
-            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+            className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition text-sm"
           >
             Logout
           </button>
           <button
             onClick={() => navigate('/receipts')}
-            className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition"
+            className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition text-sm"
           >
             Receipts
           </button>
           <button
             type="button"
             onClick={() => navigate('/sites')}
-            className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition"
+            className="bg-purple-500 text-white px-3 py-1 rounded-lg hover:bg-purple-600 transition text-sm"
           >
             Sites
           </button>
           <button
             onClick={() => navigate('/records')}
-            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+            className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition text-sm"
           >
-            View Records
+            Records
           </button>
         </div>
         <div className="bg-white p-8 rounded-xl shadow-lg">
