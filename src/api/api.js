@@ -49,3 +49,8 @@ export const createSite = async (data, token) => {
     headers: { Authorization: `Bearer ${token}` },
   })
 }
+export const deleteSite = async (id, token) => {
+  return await axios.delete(`${API_URL}/sites/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}

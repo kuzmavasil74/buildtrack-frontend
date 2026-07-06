@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { getSites, createSite } from '../api/api.js'
+import { getSites, createSite, deleteSite } from '../api/api.js'
 
 export default function Sites() {
   const [name, setName] = useState('')
@@ -22,7 +22,12 @@ export default function Sites() {
     const res = await getSites(token)
     setSites(res.data.sites)
   }
-
+  const handleDeleteSite = async (id) => {
+    const token = localStorage.getItem('token')
+    await deleteSite(id, token)
+    const res = await getSites(token)
+    setSites(res.data.sites)
+  }
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-2xl mx-auto">
@@ -63,9 +68,20 @@ export default function Sites() {
           </form>
         </div>
         {sites.map((site) => (
-          <div key={site.id} className="bg-white p-6 rounded-xl shadow-lg mb-4">
-            <p className="font-semibold text-gray-800">{site.name}</p>
-            <p className="text-gray-500 text-sm">{site.address}</p>
+          <div
+            key={site.id}
+            className="bg-white p-6 rounded-xl shadow-lg mb-4 flex justify-between items-center"
+          >
+            <div>
+              <p className="font-semibold text-gray-800">{site.name}</p>
+              <p className="text-gray-500 text-sm">{site.address}</p>
+            </div>
+            <button
+              onClick={() => handleDeleteSite(site.id)}
+              className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition text-sm"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
