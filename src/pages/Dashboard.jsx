@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { createRecord } from '../api/api.js'
 import { useNavigate } from 'react-router-dom'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const Dashboard = () => {
   const [siteId, setSiteId] = useState('')
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(new Date())
   const [workersPresent, setworkersPresent] = useState('')
   const [hoursWorked, sethoursWorked] = useState('')
   const [tasksCompleted, settasksCompleted] = useState('')
@@ -21,7 +23,7 @@ const Dashboard = () => {
       await createRecord(
         {
           siteId: Number(siteId),
-          date,
+          date: date.toISOString(),
           workersPresent: Number(workersPresent),
           hoursWorked: Number(hoursWorked),
           tasksCompleted: tasksCompleted.split(',').map((t) => t.trim()),
@@ -30,7 +32,7 @@ const Dashboard = () => {
         token
       )
       setSiteId('')
-      setDate('')
+      setDate(new Date())
       setworkersPresent('')
       sethoursWorked('')
       settasksCompleted('')
@@ -77,11 +79,12 @@ const Dashboard = () => {
               placeholder="Site ID"
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
             />
-            <input
-              type="date"
+            <DatePicker
+              selected={date}
+              onChange={(date) => setDate(date)}
+              dateFormat="dd/MM/yyyy"
+              className="border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
               value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
             />
             <input
               type="number"
