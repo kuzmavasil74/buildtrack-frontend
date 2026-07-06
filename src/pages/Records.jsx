@@ -55,6 +55,12 @@ export default function Records() {
             <p className="text-gray-600 text-sm mt-1">
               Tasks: {record.tasksCompleted.join(', ')}
             </p>
+            <p className="text-gray-600 text-sm mt-1">
+              Materials:{' '}
+              {record.materialsUsed
+                .map((m) => `${m.name} (${m.quantity} ${m.unit})`)
+                .join(', ')}
+            </p>
           </div>
         ))}
         {records.length === 0 && (
