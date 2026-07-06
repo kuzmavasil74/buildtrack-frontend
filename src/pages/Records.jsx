@@ -1,16 +1,26 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { getRecords, downloadReport } from '../api/api.js'
+import { getRecords, downloadReport, getSites } from '../api/api.js'
 
 export default function Records() {
   const navigate = useNavigate()
   const [records, setRecords] = useState([])
+  const [sites, setSites] = useState([])
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     getRecords(token).then((res) => setRecords(res.data.records))
   }, [])
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    getRecords(token).then((res) => setRecords(res.data.records))
+    getSites(token).then((res) => setSites(res.data.sites))
+  }, [])
+  const getSiteName = (siteId) => {
+    const site = sites.find((s) => s.id === siteId)
+    return site ? site.name : `Site #${siteId}`
+  }
   const handleDownloadReport = async () => {
     const token = localStorage.getItem('token')
     const response = await downloadReport(token)
@@ -48,7 +58,7 @@ export default function Records() {
             <p className="text-gray-500 text-sm">
               {new Date(record.date).toLocaleDateString()}
             </p>
-            <p className="font-semibold mt-1">Site ID: {record.siteId}</p>
+            <p className="font-semibold mt-1">{getSiteName(record.siteId)}</p>
             <p>
               Workers: {record.workersPresent} | Hours: {record.hoursWorked}
             </p>
