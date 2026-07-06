@@ -1,7 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { getRecords, downloadReport, getSites } from '../api/api.js'
+import {
+  getRecords,
+  downloadReport,
+  getSites,
+  deleteRecord,
+} from '../api/api.js'
 
 export default function Records() {
   const navigate = useNavigate()
@@ -29,6 +34,12 @@ export default function Records() {
     link.click()
     link.remove()
   }
+  const handleDeleteRecord = async (id) => {
+    const token = localStorage.getItem('token')
+    await deleteRecord(id, token)
+    const res = await getRecords(token)
+    setRecords(res.data.records)
+  }
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-2xl mx-auto">
@@ -52,9 +63,17 @@ export default function Records() {
             key={record._id}
             className="bg-white p-6 rounded-xl shadow-lg mb-4"
           >
-            <p className="text-gray-500 text-sm">
-              {new Date(record.date).toLocaleDateString()}
-            </p>
+            <div className="flex justify-between items-start">
+              <p className="text-gray-500 text-sm">
+                {new Date(record.date).toLocaleDateString()}
+              </p>
+              <button
+                onClick={() => handleDeleteRecord(record._id)}
+                className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition text-sm"
+              >
+                Delete
+              </button>
+            </div>
             <p className="font-semibold mt-1">{getSiteName(record.siteId)}</p>
             <p>
               Workers: {record.workersPresent} | Hours: {record.hoursWorked}
