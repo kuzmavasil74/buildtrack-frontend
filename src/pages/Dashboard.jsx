@@ -10,7 +10,10 @@ const Dashboard = () => {
   const [workersPresent, setworkersPresent] = useState('')
   const [hoursWorked, sethoursWorked] = useState('')
   const [tasksCompleted, settasksCompleted] = useState('')
-  const [materialsUsed, setmaterialsUsed] = useState('')
+  const [materials, setMaterials] = useState([])
+  const [materialName, setMaterialName] = useState('')
+  const [materialQty, setMaterialQty] = useState('')
+  const [materialUnit, setMaterialUnit] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -27,7 +30,7 @@ const Dashboard = () => {
           workersPresent: Number(workersPresent),
           hoursWorked: Number(hoursWorked),
           tasksCompleted: tasksCompleted.split(',').map((t) => t.trim()),
-          materialsUsed: [{ name: materialsUsed, quantity: 1, unit: 'units' }],
+          materialsUsed: materials,
         },
         token
       )
@@ -36,12 +39,26 @@ const Dashboard = () => {
       setworkersPresent('')
       sethoursWorked('')
       settasksCompleted('')
-      setmaterialsUsed('')
+      setMaterials([])
       alert('Record created successfully!')
     } catch (error) {
       setError(error.message)
     }
     setLoading(false)
+  }
+  const addMaterial = () => {
+    if (!materialName) return
+    setMaterials([
+      ...materials,
+      {
+        name: materialName,
+        quantity: Number(materialQty),
+        unit: materialUnit,
+      },
+    ])
+    setMaterialName('')
+    setMaterialQty('')
+    setMaterialUnit('')
   }
   const logout = () => {
     localStorage.removeItem('token')
@@ -109,11 +126,37 @@ const Dashboard = () => {
             />
             <input
               type="text"
-              value={materialsUsed}
-              onChange={(e) => setmaterialsUsed(e.target.value)}
-              placeholder="Materials Used (comma separated)"
+              value={materialName}
+              onChange={(e) => setMaterialName(e.target.value)}
+              placeholder="Material Name"
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
             />
+            <input
+              type="number"
+              value={materialQty}
+              onChange={(e) => setMaterialQty(e.target.value)}
+              placeholder="Quantity"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <input
+              type="text"
+              value={materialUnit}
+              onChange={(e) => setMaterialUnit(e.target.value)}
+              placeholder="Unit"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <button
+              type="button"
+              onClick={addMaterial}
+              className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold"
+            >
+              Add Material
+            </button>
+            {materials.map((m, i) => (
+              <p key={i} className="text-sm text-gray-600">
+                {m.name} — {m.quantity} {m.unit}
+              </p>
+            ))}
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold"
