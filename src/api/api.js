@@ -30,3 +30,11 @@ export const getRecords = async (token) => {
     },
   })
 }
+export const downloadReport = async (token) => {
+  return await axios.get(`${API_URL}/records/report`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    responseType: 'blob',
+  })
+}

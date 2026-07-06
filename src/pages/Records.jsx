@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { getRecords } from '../api/api.js'
+import { getRecords, downloadReport } from '../api/api.js'
 
 export default function Records() {
   const navigate = useNavigate()
@@ -11,6 +11,17 @@ export default function Records() {
     const token = localStorage.getItem('token')
     getRecords(token).then((res) => setRecords(res.data.records))
   }, [])
+  const handleDownloadReport = async () => {
+    const token = localStorage.getItem('token')
+    const response = await downloadReport(token)
+    const url = window.URL.createObjectURL(new Blob([response.data]))
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', 'report.pdf')
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+  }
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-2xl mx-auto">
@@ -21,6 +32,12 @@ export default function Records() {
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
           >
             New Record
+          </button>
+          <button
+            onClick={handleDownloadReport}
+            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+          >
+            Download Report
           </button>
         </div>
         {records.map((record) => (
