@@ -23,3 +23,10 @@ export const createRecord = async (data, token) => {
     },
   })
 }
+export const getRecords = async (token) => {
+  return await axios.get(`${API_URL}/records`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}

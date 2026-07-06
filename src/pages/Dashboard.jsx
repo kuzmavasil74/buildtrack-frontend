@@ -58,6 +58,12 @@ const Dashboard = () => {
           >
             Logout
           </button>
+          <button
+            onClick={() => navigate('/records')}
+            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+          >
+            View Records
+          </button>
         </div>
         <div className="bg-white p-8 rounded-xl shadow-lg">
           <h3 className="text-xl font-semibold text-gray-700 mb-6">

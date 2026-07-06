@@ -4,7 +4,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Main from './pages/Main.jsx'
-
+import Records from './pages/Records.jsx'
 import './App.css'
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/records" element={<Records />} />
       </Routes>
     </BrowserRouter>
   )
