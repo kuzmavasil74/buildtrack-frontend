@@ -67,3 +67,11 @@ export const uploadReceipt = async (formData, token) => {
     },
   })
 }
+export const getReceipts = async (token, siteId) => {
+  const url = siteId
+    ? `${API_URL}/receipts?siteId=${siteId}`
+    : `${API_URL}/receipts`
+  return await axios.get(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}

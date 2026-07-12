@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getSites, uploadReceipt } from '../api/api.js'
+import { getSites, uploadReceipt, getReceipts } from '../api/api.js'
 
 export default function Receipts() {
   const navigate = useNavigate()
@@ -9,10 +9,12 @@ export default function Receipts() {
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [receipts, setReceipts] = useState([])
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     getSites(token).then((res) => setSites(res.data.sites))
+    getReceipts(token).then((res) => setReceipts(res.data.receipts))
   }, [])
 
   const handleUpload = async (e) => {
@@ -26,7 +28,8 @@ export default function Receipts() {
       formData.append('siteId', siteId)
 
       await uploadReceipt(formData, token)
-
+      const res = await getReceipts(token)
+      setReceipts(res.data.receipts)
       setSuccess(true)
       setFile(null)
     } catch (error) {
@@ -74,6 +77,25 @@ export default function Receipts() {
               {loading ? 'Uploading...' : 'Upload Receipt'}
             </button>
           </form>
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold text-gray-700 mb-4">
+              Uploaded Receipts
+            </h3>
+            {receipts.map((receipt) => (
+              <div
+                key={receipt._id}
+                className="bg-gray-50 p-3 rounded-lg mb-2 flex justify-between items-center"
+              >
+                <p className="text-sm text-gray-700">{receipt.originalName}</p>
+                <p className="text-xs text-gray-400">
+                  {new Date(receipt.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+            ))}
+            {receipts.length === 0 && (
+              <p className="text-gray-400 text-sm">No receipts yet</p>
+            )}
+          </div>
           {success && (
             <p className="text-green-500 text-sm mt-2">
               Receipt uploaded successfully!
