@@ -12,6 +12,8 @@ export default function Records() {
   const navigate = useNavigate()
   const [records, setRecords] = useState([])
   const [sites, setSites] = useState([])
+  const [from, setFrom] = useState('')
+  const [to, setTo] = useState('')
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -25,8 +27,10 @@ export default function Records() {
   }
   const handleDownloadReport = async () => {
     const token = localStorage.getItem('token')
-    const response = await downloadReport(token)
-    const url = window.URL.createObjectURL(new Blob([response.data]))
+    const response = await downloadReport(token, { from, to })
+    const url = window.URL.createObjectURL(
+      new Blob([response.data], { type: 'application/pdf' })
+    )
     const link = document.createElement('a')
     link.href = url
     link.setAttribute('download', 'report.pdf')
@@ -51,6 +55,21 @@ export default function Records() {
           >
             New Record
           </button>
+          <div className="flex gap-2 items-center">
+            <input
+              type="date"
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+            />
+            <span className="text-gray-500">—</span>
+            <input
+              type="date"
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+            />
+          </div>
           <button
             onClick={handleDownloadReport}
             className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
