@@ -80,3 +80,8 @@ export const getReceipts = async (token, siteId) => {
     headers: { Authorization: `Bearer ${token}` },
   })
 }
+export const getMonthlyStats = async (token) => {
+  return await axios.get(`${API_URL}/records/monthly-stats`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}

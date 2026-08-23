@@ -6,11 +6,14 @@ import {
   downloadReport,
   getSites,
   deleteRecord,
+  getMonthlyStats,
 } from '../api/api.js'
+
 export default function Records() {
   const navigate = useNavigate()
   const [records, setRecords] = useState([])
   const [sites, setSites] = useState([])
+  const [monthlyStats, setMonthlyStats] = useState([])
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
   const [downloading, setDownloading] = useState(false)
@@ -19,6 +22,7 @@ export default function Records() {
     const token = localStorage.getItem('token')
     getRecords(token).then((res) => setRecords(res.data.records))
     getSites(token).then((res) => setSites(res.data.sites))
+    getMonthlyStats(token).then((res) => setMonthlyStats(res.data.stats))
   }, [])
 
   const getSiteName = (siteId) => {
@@ -202,7 +206,74 @@ export default function Records() {
             </p>
           )}
         </div>
-
+        {/* Monthly Stats */}
+        {monthlyStats.length > 0 && (
+          <div style={{ marginBottom: 24 }}>
+            <p
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: '#374151',
+                margin: '0 0 12px',
+              }}
+            >
+              Hours by Month
+            </p>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              {monthlyStats.map((stat) => (
+                <div
+                  key={`${stat.year}-${stat.month}`}
+                  style={{
+                    background: '#fff',
+                    borderRadius: 10,
+                    padding: '14px 18px',
+                    border: '1px solid #E5E7EB',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+                    minWidth: 140,
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: 11,
+                      color: '#9CA3AF',
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      margin: '0 0 6px',
+                    }}
+                  >
+                    {new Date(stat.year, stat.month - 1).toLocaleDateString(
+                      'uk-UA',
+                      { month: 'long', year: 'numeric' }
+                    )}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 22,
+                      fontWeight: 700,
+                      color: '#111827',
+                      margin: '0 0 4px',
+                    }}
+                  >
+                    {stat.hours}{' '}
+                    <span
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 400,
+                        color: '#6B7280',
+                      }}
+                    >
+                      год
+                    </span>
+                  </p>
+                  <p style={{ fontSize: 12, color: '#6B7280', margin: 0 }}>
+                    {stat.records} записів · {stat.workers} люд/день
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         {/* Records List */}
         {records.length === 0 ? (
           <div
