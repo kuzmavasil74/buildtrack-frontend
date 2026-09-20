@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { createRecord, getSites } from '../api/api.js'
-import { useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import Navbar from '../components/Navbar.jsx'
 
 const Dashboard = () => {
   const [siteId, setSiteId] = useState('')
@@ -17,24 +17,19 @@ const Dashboard = () => {
   const [sites, setSites] = useState([])
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
   const submit = async (e) => {
     e.preventDefault()
     setError('')
     setLoading(true)
     try {
-      const token = localStorage.getItem('token')
-      await createRecord(
-        {
-          siteId: Number(siteId),
-          date: date.toISOString(),
-          workersPresent: Number(workersPresent),
-          hoursWorked: Number(hoursWorked),
-          tasksCompleted: tasksCompleted.split(',').map((t) => t.trim()),
-          materialsUsed: materials,
-        },
-        token
-      )
+      await createRecord({
+        siteId: Number(siteId),
+        date: date.toISOString(),
+        workersPresent: Number(workersPresent),
+        hoursWorked: Number(hoursWorked),
+        tasksCompleted: tasksCompleted.split(',').map((t) => t.trim()),
+        materialsUsed: materials,
+      })
       setSiteId('')
       setDate(new Date())
       setworkersPresent('')
@@ -43,7 +38,7 @@ const Dashboard = () => {
       setMaterials([])
       alert('Record created successfully!')
     } catch (error) {
-      setError(error.message)
+      setError(error.response?.data?.message || error.message)
     }
     setLoading(false)
   }
@@ -61,149 +56,132 @@ const Dashboard = () => {
     setMaterialQty('')
     setMaterialUnit('')
   }
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    getSites(token).then((res) => setSites(res.data.sites))
-  }, [])
-  const logout = () => {
-    localStorage.removeItem('token')
-    navigate('/login')
+  const removeMaterial = (index) => {
+    setMaterials(materials.filter((_, i) => i !== index))
   }
+  useEffect(() => {
+    getSites().then((res) => setSites(res.data.sites))
+  }, [])
   return (
-    <div className="py-8 bg-gray-100 px-4 overflow-y-auto">
-      <div className="max-w-lg mx-auto">
-        <div className="flex justify-between items-center mb-6 gap-2">
-          <h2 className="text-lg font-bold text-gray-800">BuildTrack</h2>
-          <button
-            onClick={logout}
-            className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition text-sm"
-          >
-            Logout
-          </button>
-          <button
-            onClick={() => navigate('/receipts')}
-            className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition text-sm"
-          >
-            Receipts
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate('/sites')}
-            className="bg-purple-500 text-white px-3 py-1 rounded-lg hover:bg-purple-600 transition text-sm"
-          >
-            Sites
-          </button>
-          <button
-            onClick={() => navigate('/records')}
-            className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition text-sm"
-          >
-            Records
-          </button>
-        </div>
-        <div className="bg-white p-8 rounded-xl shadow-lg">
-          <h3 className="text-xl font-semibold text-gray-700 mb-6">
-            Daily Record
-          </h3>
-          <form onSubmit={submit} className="flex flex-col gap-4">
-            <select
-              value={siteId}
-              onChange={(e) => setSiteId(e.target.value)}
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-            >
-              <option value="">Select Construction Site</option>
-              {sites.map((site) => (
-                <option key={site.id} value={site.id}>
-                  {site.name}
-                </option>
-              ))}
-            </select>
-            <DatePicker
-              selected={date}
-              onChange={(date) => setDate(date)}
-              dateFormat="dd/MM/yyyy"
-              className="border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-              value={date}
-            />
-            <input
-              type="number"
-              value={workersPresent}
-              onChange={(e) => setworkersPresent(e.target.value)}
-              placeholder="Workers Present"
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-            />
-            <input
-              type="number"
-              value={hoursWorked}
-              onChange={(e) => sethoursWorked(e.target.value)}
-              placeholder="Hours Worked"
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-            />
-            <input
-              type="text"
-              value={tasksCompleted}
-              onChange={(e) => settasksCompleted(e.target.value)}
-              placeholder="Tasks Completed (comma separated)"
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-            />
-            <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
-              <p className="text-sm font-semibold text-gray-600 mb-3">
-                Materials Used
-              </p>
-              <div className="flex flex-col gap-2">
-                <input
-                  type="text"
-                  value={materialName}
-                  onChange={(e) => setMaterialName(e.target.value)}
-                  placeholder="Material Name (e.g. cement)"
-                  className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 bg-white"
-                />
-                <div className="flex gap-2">
-                  <input
-                    type="number"
-                    value={materialQty}
-                    onChange={(e) => setMaterialQty(e.target.value)}
-                    placeholder="Quantity"
-                    className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500 bg-white"
-                  />
+    <div className="min-h-screen bg-gray-100">
+      <Navbar />
+      <div className="py-6 sm:py-8 px-4">
+        <div className="max-w-lg mx-auto">
+          <div className="bg-white p-5 sm:p-8 rounded-xl shadow-lg">
+            <h3 className="text-xl font-semibold text-gray-700 mb-6">
+              Daily Record
+            </h3>
+            <form onSubmit={submit} className="flex flex-col gap-4">
+              <select
+                value={siteId}
+                onChange={(e) => setSiteId(e.target.value)}
+                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+              >
+                <option value="">Select Construction Site</option>
+                {sites.map((site) => (
+                  <option key={site.id} value={site.id}>
+                    {site.name}
+                  </option>
+                ))}
+              </select>
+              <DatePicker
+                selected={date}
+                onChange={(date) => setDate(date)}
+                dateFormat="dd/MM/yyyy"
+                className="border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+                value={date}
+              />
+              <input
+                type="number"
+                value={workersPresent}
+                onChange={(e) => setworkersPresent(e.target.value)}
+                placeholder="Workers Present"
+                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+              />
+              <input
+                type="number"
+                value={hoursWorked}
+                onChange={(e) => sethoursWorked(e.target.value)}
+                placeholder="Hours Worked"
+                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+              />
+              <input
+                type="text"
+                value={tasksCompleted}
+                onChange={(e) => settasksCompleted(e.target.value)}
+                placeholder="Tasks Completed (comma separated)"
+                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+              />
+              <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
+                <p className="text-sm font-semibold text-gray-600 mb-3">
+                  Materials Used
+                </p>
+                <div className="flex flex-col gap-2">
                   <input
                     type="text"
-                    value={materialUnit}
-                    onChange={(e) => setMaterialUnit(e.target.value)}
-                    placeholder="Unit (kg, bags, pcs)"
-                    className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500 bg-white"
+                    value={materialName}
+                    onChange={(e) => setMaterialName(e.target.value)}
+                    placeholder="Material Name (e.g. cement)"
+                    className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 bg-white"
                   />
-                </div>
-                <button
-                  type="button"
-                  onClick={addMaterial}
-                  className="bg-gray-700 text-white py-2 rounded-lg hover:bg-gray-800 transition text-sm font-semibold"
-                >
-                  + Add Material
-                </button>
-                {materials.length > 0 && (
-                  <div className="mt-1 flex flex-col gap-1">
-                    {materials.map((m, i) => (
-                      <p
-                        key={i}
-                        className="text-sm text-gray-600 bg-white border border-gray-200 rounded-lg px-3 py-1"
-                      >
-                        {m.name} — {m.quantity} {m.unit}
-                      </p>
-                    ))}
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      value={materialQty}
+                      onChange={(e) => setMaterialQty(e.target.value)}
+                      placeholder="Quantity"
+                      className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500 bg-white"
+                    />
+                    <input
+                      type="text"
+                      value={materialUnit}
+                      onChange={(e) => setMaterialUnit(e.target.value)}
+                      placeholder="Unit (kg, bags, pcs)"
+                      className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500 bg-white"
+                    />
                   </div>
-                )}
+                  <button
+                    type="button"
+                    onClick={addMaterial}
+                    className="bg-gray-700 text-white py-2 rounded-lg hover:bg-gray-800 transition text-sm font-semibold"
+                  >
+                    + Add Material
+                  </button>
+                  {materials.length > 0 && (
+                    <div className="mt-1 flex flex-col gap-1">
+                      {materials.map((m, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-between text-sm text-gray-600 bg-white border border-gray-200 rounded-lg px-3 py-1"
+                        >
+                          <span>
+                            {m.name} — {m.quantity} {m.unit}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => removeMaterial(i)}
+                            aria-label={`Remove ${m.name}`}
+                            className="text-gray-400 hover:text-red-500 px-2"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
-            <button
-              type="submit"
-              className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold"
-            >
-              Submit Record
-            </button>
-          </form>
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-          {loading && <p className="text-gray-500 text-sm mt-2">Loading...</p>}
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold disabled:opacity-60"
+              >
+                {loading ? 'Submitting...' : 'Submit Record'}
+              </button>
+            </form>
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          </div>
         </div>
       </div>
     </div>

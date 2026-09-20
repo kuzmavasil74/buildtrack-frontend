@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 const Main = () => {
   const navigate = useNavigate()
   return (
-    <div className="py-20 bg-gray-100 flex items-center justify-center">
+    <div className="min-h-screen py-20 px-4 bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-10 rounded-xl shadow-lg w-full max-w-md text-center">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">BuildTrack</h1>
         <p className="text-gray-500 mb-8">Construction site daily tracking</p>
