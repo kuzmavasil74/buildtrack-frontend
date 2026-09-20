@@ -13,16 +13,15 @@ const Login = () => {
     setError('')
     setLoading(true)
     try {
-      const response = await login(email, password)
-      localStorage.setItem('token', response.data.token)
+      await login(email, password)
       navigate('/dashboard')
     } catch (error) {
-      setError(error.message)
+      setError(error.response?.data?.message || error.message)
     }
     setLoading(false)
   }
   return (
-    <div className="py-18 bg-gray-100 flex items-center justify-center">
+    <div className="min-h-screen py-18 px-4 bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Login
@@ -33,20 +32,21 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
-            className="border border-gray-300 rounded-lg px-4 py-1 focus:outline-none focus:border-blue-500"
+            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
           />
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="border border-gray-300 rounded-lg px-4 py-1 focus:outline-none focus:border-blue-500"
+            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
           />
           <button
             type="submit"
-            className="bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600 transition"
+            disabled={loading}
+            className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition disabled:opacity-60"
           >
-            Login
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
         <p className="text-center text-sm text-gray-500 mt-4">
@@ -56,7 +56,6 @@ const Login = () => {
           </a>
         </p>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-        {loading && <p className="text-gray-500 text-sm mt-2">Loading...</p>}
       </div>
     </div>
   )

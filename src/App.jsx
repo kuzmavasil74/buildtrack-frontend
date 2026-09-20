@@ -7,6 +7,7 @@ import Main from './pages/Main.jsx'
 import Records from './pages/Records.jsx'
 import Sites from './pages/Sites.jsx'
 import Receipts from './pages/Receipts.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 import './App.css'
 
 function App() {
@@ -16,10 +17,38 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/records" element={<Records />} />
-        <Route path="/sites" element={<Sites />} />
-        <Route path="/receipts" element={<Receipts />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/records"
+          element={
+            <ProtectedRoute>
+              <Records />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/sites"
+          element={
+            <ProtectedRoute>
+              <Sites />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/receipts"
+          element={
+            <ProtectedRoute>
+              <Receipts />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   )
