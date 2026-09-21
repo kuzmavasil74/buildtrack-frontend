@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { getMe } from '../api/api.js'
 
 const ProtectedRoute = ({ children }) => {
+  const { t } = useTranslation()
   const [status, setStatus] = useState('checking')
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const ProtectedRoute = ({ children }) => {
   if (status === 'checking') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-500 text-sm">Loading...</p>
+        <p className="text-gray-500 text-sm">{t('common.loading')}</p>
       </div>
     )
   }

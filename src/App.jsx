@@ -1,11 +1,13 @@
 import React from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import Home from './pages/Home.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Main from './pages/Main.jsx'
 import Records from './pages/Records.jsx'
 import Sites from './pages/Sites.jsx'
+import Crews from './pages/Crews.jsx'
 import Receipts from './pages/Receipts.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import './App.css'
@@ -17,6 +19,14 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/dashboard"
           element={
@@ -30,6 +40,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Records />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/crews"
+          element={
+            <ProtectedRoute>
+              <Crews />
             </ProtectedRoute>
           }
         />

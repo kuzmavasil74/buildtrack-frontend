@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { logout as apiLogout } from '../api/api.js'
-
-const links = [
-  { to: '/dashboard', label: 'New Record' },
-  { to: '/records', label: 'Records' },
-  { to: '/sites', label: 'Sites' },
-  { to: '/receipts', label: 'Receipts' },
-]
+import LanguageSwitcher from './LanguageSwitcher.jsx'
 
 const linkClasses = (active) =>
   `block px-3 py-2 rounded-lg text-sm font-medium transition ${
@@ -18,6 +13,16 @@ const Navbar = () => {
   const [open, setOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+  const { t } = useTranslation()
+
+  const links = [
+    { to: '/home', label: t('nav.home') },
+    { to: '/dashboard', label: t('nav.newRecord') },
+    { to: '/records', label: t('nav.records') },
+    { to: '/crews', label: t('nav.crews') },
+    { to: '/sites', label: t('nav.sites') },
+    { to: '/receipts', label: t('nav.receipts') },
+  ]
 
   const handleLogout = async () => {
     setOpen(false)
@@ -29,8 +34,8 @@ const Navbar = () => {
     <header className="sticky top-0 z-20 bg-white border-b border-gray-200">
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex items-center justify-between h-14">
-          <Link to="/dashboard" className="text-lg font-bold text-gray-800">
-            BuildTrack
+          <Link to="/home" className="flex items-center gap-2 shrink-0">
+            <img src="/logo-sanjo.svg" alt={t('app.name')} className="h-7 w-auto" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
@@ -43,17 +48,18 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <LanguageSwitcher className="ml-2" />
             <button
               onClick={handleLogout}
               className="ml-1 px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition"
             >
-              Logout
+              {t('nav.logout')}
             </button>
           </nav>
 
           <button
             type="button"
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
             className="md:hidden p-2 -mr-2 rounded-lg hover:bg-gray-100 text-gray-700"
@@ -82,11 +88,14 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <div className="px-3 pt-1">
+              <LanguageSwitcher className="w-full" />
+            </div>
             <button
               onClick={handleLogout}
               className="text-left px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition"
             >
-              Logout
+              {t('nav.logout')}
             </button>
           </nav>
         )}

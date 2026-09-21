@@ -26,15 +26,29 @@ export const getMe = async () => {
 export const createRecord = async (data) => {
   return await api.post('/records', data)
 }
-export const getRecords = async () => {
-  return await api.get('/records')
+export const getRecords = async (siteId) => {
+  return await api.get('/records', { params: siteId ? { siteId } : {} })
 }
-export const downloadReport = async ({ from, to } = {}) => {
+export const updateRecord = async (id, data) => {
+  return await api.put(`/records/${id}`, data)
+}
+export const downloadReport = async ({ from, to, lang } = {}) => {
+  const params = {}
+  if (from) params.from = from
+  if (to) params.to = to
+  if (lang) params.lang = lang
+
+  return await api.get('/records/report', {
+    params,
+    responseType: 'blob',
+  })
+}
+export const downloadCsv = async ({ from, to } = {}) => {
   const params = {}
   if (from) params.from = from
   if (to) params.to = to
 
-  return await api.get('/records/report', {
+  return await api.get('/records/export.csv', {
     params,
     responseType: 'blob',
   })
@@ -46,8 +60,23 @@ export const getSites = async () => {
 export const createSite = async (data) => {
   return await api.post('/sites', data)
 }
+export const updateSite = async (id, data) => {
+  return await api.put(`/sites/${id}`, data)
+}
 export const deleteSite = async (id) => {
   return await api.delete(`/sites/${id}`)
+}
+export const getCrews = async () => {
+  return await api.get('/crews')
+}
+export const createCrew = async (data) => {
+  return await api.post('/crews', data)
+}
+export const updateCrew = async (id, data) => {
+  return await api.put(`/crews/${id}`, data)
+}
+export const deleteCrew = async (id) => {
+  return await api.delete(`/crews/${id}`)
 }
 export const deleteRecord = async (id) => {
   return await api.delete(`/records/${id}`)

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getSites, createSite, updateSite, deleteSite } from '../api/api.js'
+import { getCrews, createCrew, updateCrew, deleteCrew } from '../api/api.js'
 import Navbar from '../components/Navbar.jsx'
 
-const SiteRow = ({ site, onSaved, onDelete }) => {
+const CrewRow = ({ crew, onSaved, onDelete }) => {
   const { t } = useTranslation()
   const [editing, setEditing] = useState(false)
-  const [name, setName] = useState(site.name)
-  const [address, setAddress] = useState(site.address || '')
-  const [latitude, setLatitude] = useState(site.latitude ?? '')
-  const [longitude, setLongitude] = useState(site.longitude ?? '')
+  const [name, setName] = useState(crew.name)
+  const [members, setMembers] = useState(crew.members.join(', '))
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
 
@@ -17,7 +15,10 @@ const SiteRow = ({ site, onSaved, onDelete }) => {
     setSaving(true)
     setError('')
     try {
-      await updateSite(site.id, { name, address, latitude, longitude })
+      await updateCrew(crew.id, {
+        name,
+        members: members.split(',').map((m) => m.trim()).filter(Boolean),
+      })
       setEditing(false)
       onSaved()
     } catch (err) {
@@ -37,28 +38,11 @@ const SiteRow = ({ site, onSaved, onDelete }) => {
         />
         <input
           type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          value={members}
+          onChange={(e) => setMembers(e.target.value)}
+          placeholder={t('crews.members')}
           className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
         />
-        <div className="flex gap-2">
-          <input
-            type="number"
-            step="any"
-            value={latitude}
-            onChange={(e) => setLatitude(e.target.value)}
-            placeholder={t('sites.latitude')}
-            className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500"
-          />
-          <input
-            type="number"
-            step="any"
-            value={longitude}
-            onChange={(e) => setLongitude(e.target.value)}
-            placeholder={t('sites.longitude')}
-            className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500"
-          />
-        </div>
         {error && <p className="text-red-500 text-sm">{error}</p>}
         <div className="flex gap-2">
           <button
@@ -80,19 +64,14 @@ const SiteRow = ({ site, onSaved, onDelete }) => {
   }
 
   return (
-    <div className="bg-white p-5 sm:p-6 rounded-xl shadow-lg mb-4 flex justify-between items-center gap-3">
+    <div className="bg-white p-5 sm:p-6 rounded-xl shadow-lg mb-4 flex justify-between items-start gap-3">
       <div className="min-w-0">
-        <p className="font-semibold text-gray-800 truncate">{site.name}</p>
-        <p className="text-gray-500 text-sm truncate">{site.address}</p>
-        {site.latitude != null && site.longitude != null && (
-          <a
-            href={`https://www.google.com/maps?q=${site.latitude},${site.longitude}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 text-sm hover:underline"
-          >
-            {t('sites.viewOnMap')}
-          </a>
+        <p className="font-semibold text-gray-800">{crew.name}</p>
+        <p className="text-gray-500 text-sm mb-1">
+          {t('crews.memberCount', { count: crew.members.length })}
+        </p>
+        {crew.members.length > 0 && (
+          <p className="text-gray-400 text-xs">{crew.members.join(', ')}</p>
         )}
       </div>
       <div className="shrink-0 flex gap-2">
@@ -103,7 +82,7 @@ const SiteRow = ({ site, onSaved, onDelete }) => {
           {t('common.edit')}
         </button>
         <button
-          onClick={() => onDelete(site.id)}
+          onClick={() => onDelete(crew.id)}
           className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition text-sm"
         >
           {t('common.delete')}
@@ -113,111 +92,95 @@ const SiteRow = ({ site, onSaved, onDelete }) => {
   )
 }
 
-export default function Sites() {
+export default function Crews() {
   const { t } = useTranslation()
   const [name, setName] = useState('')
-  const [address, setAddress] = useState('')
-  const [latitude, setLatitude] = useState('')
-  const [longitude, setLongitude] = useState('')
-  const [sites, setSites] = useState([])
+  const [members, setMembers] = useState('')
+  const [crews, setCrews] = useState([])
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const refresh = async () => {
-    const res = await getSites()
-    setSites(res.data.sites)
+    const res = await getCrews()
+    setCrews(res.data.crews)
   }
 
   useEffect(() => {
     refresh()
   }, [])
-  const handleCreateSite = async (e) => {
+
+  const handleCreateCrew = async (e) => {
     e.preventDefault()
     setError('')
     setLoading(true)
     try {
-      await createSite({ name, address, latitude, longitude })
+      await createCrew({
+        name,
+        members: members.split(',').map((m) => m.trim()).filter(Boolean),
+      })
       setName('')
-      setAddress('')
-      setLatitude('')
-      setLongitude('')
+      setMembers('')
       await refresh()
     } catch (err) {
       setError(err.response?.data?.message || err.message)
     }
     setLoading(false)
   }
-  const handleDeleteSite = async (id) => {
-    if (!window.confirm(t('sites.confirmDelete'))) return
-    await deleteSite(id)
+
+  const handleDeleteCrew = async (id) => {
+    if (!window.confirm(t('crews.confirmDelete'))) return
+    await deleteCrew(id)
     await refresh()
   }
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
       <div className="p-4 sm:p-8">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 sm:mb-8">
-            {t('sites.title')}
+            {t('crews.title')}
           </h2>
           <div className="bg-white p-5 sm:p-6 rounded-xl shadow-lg mb-8">
             <h3 className="text-xl font-semibold text-gray-700 mb-4">
-              {t('sites.addNew')}
+              {t('crews.addNew')}
             </h3>
-            <form onSubmit={handleCreateSite} className="flex flex-col gap-4">
+            <form onSubmit={handleCreateCrew} className="flex flex-col gap-4">
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder={t('sites.siteName')}
+                placeholder={t('crews.crewName')}
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
               />
               <input
                 type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder={t('sites.address')}
+                value={members}
+                onChange={(e) => setMembers(e.target.value)}
+                placeholder={t('crews.members')}
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
               />
-              <div className="flex gap-2">
-                <input
-                  type="number"
-                  step="any"
-                  value={latitude}
-                  onChange={(e) => setLatitude(e.target.value)}
-                  placeholder={t('sites.latitude')}
-                  className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500"
-                />
-                <input
-                  type="number"
-                  step="any"
-                  value={longitude}
-                  onChange={(e) => setLongitude(e.target.value)}
-                  placeholder={t('sites.longitude')}
-                  className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500"
-                />
-              </div>
               <button
                 type="submit"
                 disabled={loading}
                 className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold disabled:opacity-60"
               >
-                {loading ? t('sites.adding') : t('sites.add')}
+                {loading ? t('crews.adding') : t('crews.add')}
               </button>
               {error && <p className="text-red-500 text-sm">{error}</p>}
             </form>
           </div>
-          {sites.length === 0 ? (
+          {crews.length === 0 ? (
             <div className="bg-white rounded-xl border border-dashed border-gray-300 p-10 text-center text-gray-400">
-              {t('sites.empty')}
+              {t('crews.empty')}
             </div>
           ) : (
-            sites.map((site) => (
-              <SiteRow
-                key={site.id}
-                site={site}
+            crews.map((crew) => (
+              <CrewRow
+                key={crew.id}
+                crew={crew}
                 onSaved={refresh}
-                onDelete={handleDeleteSite}
+                onDelete={handleDeleteCrew}
               />
             ))
           )}

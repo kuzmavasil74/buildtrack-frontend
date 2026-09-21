@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { createRecord, getSites } from '../api/api.js'
+import { createRecord, getSites, getCrews } from '../api/api.js'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { useTranslation } from 'react-i18next'
 import Navbar from '../components/Navbar.jsx'
 
 const Dashboard = () => {
+  const { t } = useTranslation()
   const [siteId, setSiteId] = useState('')
+  const [crewId, setCrewId] = useState('')
+  const [crews, setCrews] = useState([])
   const [date, setDate] = useState(new Date())
   const [workersPresent, setworkersPresent] = useState('')
   const [hoursWorked, sethoursWorked] = useState('')
@@ -24,6 +28,7 @@ const Dashboard = () => {
     try {
       await createRecord({
         siteId: Number(siteId),
+        crewId: crewId ? Number(crewId) : undefined,
         date: date.toISOString(),
         workersPresent: Number(workersPresent),
         hoursWorked: Number(hoursWorked),
@@ -31,12 +36,13 @@ const Dashboard = () => {
         materialsUsed: materials,
       })
       setSiteId('')
+      setCrewId('')
       setDate(new Date())
       setworkersPresent('')
       sethoursWorked('')
       settasksCompleted('')
       setMaterials([])
-      alert('Record created successfully!')
+      alert(t('dashboard.createSuccess'))
     } catch (error) {
       setError(error.response?.data?.message || error.message)
     }
@@ -59,8 +65,14 @@ const Dashboard = () => {
   const removeMaterial = (index) => {
     setMaterials(materials.filter((_, i) => i !== index))
   }
+  const handleCrewChange = (value) => {
+    setCrewId(value)
+    const crew = crews.find((c) => String(c.id) === value)
+    if (crew) setworkersPresent(String(crew.members.length))
+  }
   useEffect(() => {
     getSites().then((res) => setSites(res.data.sites))
+    getCrews().then((res) => setCrews(res.data.crews))
   }, [])
   return (
     <div className="min-h-screen bg-gray-100">
@@ -69,7 +81,7 @@ const Dashboard = () => {
         <div className="max-w-lg mx-auto">
           <div className="bg-white p-5 sm:p-8 rounded-xl shadow-lg">
             <h3 className="text-xl font-semibold text-gray-700 mb-6">
-              Daily Record
+              {t('dashboard.dailyRecord')}
             </h3>
             <form onSubmit={submit} className="flex flex-col gap-4">
               <select
@@ -77,10 +89,22 @@ const Dashboard = () => {
                 onChange={(e) => setSiteId(e.target.value)}
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
               >
-                <option value="">Select Construction Site</option>
+                <option value="">{t('dashboard.selectSite')}</option>
                 {sites.map((site) => (
                   <option key={site.id} value={site.id}>
                     {site.name}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={crewId}
+                onChange={(e) => handleCrewChange(e.target.value)}
+                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+              >
+                <option value="">{t('dashboard.selectCrew')}</option>
+                {crews.map((crew) => (
+                  <option key={crew.id} value={crew.id}>
+                    {crew.name} ({crew.members.length})
                   </option>
                 ))}
               </select>
@@ -95,33 +119,33 @@ const Dashboard = () => {
                 type="number"
                 value={workersPresent}
                 onChange={(e) => setworkersPresent(e.target.value)}
-                placeholder="Workers Present"
+                placeholder={t('dashboard.workersPresent')}
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
               />
               <input
                 type="number"
                 value={hoursWorked}
                 onChange={(e) => sethoursWorked(e.target.value)}
-                placeholder="Hours Worked"
+                placeholder={t('dashboard.hoursWorked')}
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
               />
               <input
                 type="text"
                 value={tasksCompleted}
                 onChange={(e) => settasksCompleted(e.target.value)}
-                placeholder="Tasks Completed (comma separated)"
+                placeholder={t('dashboard.tasksCompleted')}
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
               />
               <div className="border border-gray-200 rounded-xl p-4 bg-gray-50">
                 <p className="text-sm font-semibold text-gray-600 mb-3">
-                  Materials Used
+                  {t('dashboard.materialsUsed')}
                 </p>
                 <div className="flex flex-col gap-2">
                   <input
                     type="text"
                     value={materialName}
                     onChange={(e) => setMaterialName(e.target.value)}
-                    placeholder="Material Name (e.g. cement)"
+                    placeholder={t('dashboard.materialName')}
                     className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 bg-white"
                   />
                   <div className="flex gap-2">
@@ -129,14 +153,14 @@ const Dashboard = () => {
                       type="number"
                       value={materialQty}
                       onChange={(e) => setMaterialQty(e.target.value)}
-                      placeholder="Quantity"
+                      placeholder={t('dashboard.quantity')}
                       className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500 bg-white"
                     />
                     <input
                       type="text"
                       value={materialUnit}
                       onChange={(e) => setMaterialUnit(e.target.value)}
-                      placeholder="Unit (kg, bags, pcs)"
+                      placeholder={t('dashboard.unit')}
                       className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:border-blue-500 bg-white"
                     />
                   </div>
@@ -145,7 +169,7 @@ const Dashboard = () => {
                     onClick={addMaterial}
                     className="bg-gray-700 text-white py-2 rounded-lg hover:bg-gray-800 transition text-sm font-semibold"
                   >
-                    + Add Material
+                    {t('dashboard.addMaterial')}
                   </button>
                   {materials.length > 0 && (
                     <div className="mt-1 flex flex-col gap-1">
@@ -160,7 +184,7 @@ const Dashboard = () => {
                           <button
                             type="button"
                             onClick={() => removeMaterial(i)}
-                            aria-label={`Remove ${m.name}`}
+                            aria-label={t('dashboard.removeMaterial', { name: m.name })}
                             className="text-gray-400 hover:text-red-500 px-2"
                           >
                             ✕
@@ -177,7 +201,7 @@ const Dashboard = () => {
                 disabled={loading}
                 className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition font-semibold disabled:opacity-60"
               >
-                {loading ? 'Submitting...' : 'Submit Record'}
+                {loading ? t('dashboard.submitting') : t('dashboard.submit')}
               </button>
             </form>
             {error && <p className="text-red-500 text-sm mt-2">{error}</p>}

@@ -1,0 +1,123 @@
+{
+  "app": {
+    "name": "Sanjo",
+    "tagline": "Construction site daily tracking"
+  },
+  "nav": {
+    "home": "Home",
+    "newRecord": "New Record",
+    "records": "Records",
+    "crews": "Crews",
+    "sites": "Sites",
+    "receipts": "Receipts",
+    "logout": "Logout",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "auth": {
+    "login": "Login",
+    "loggingIn": "Logging in...",
+    "register": "Register",
+    "creatingAccount": "Creating account...",
+    "email": "Email",
+    "password": "Password",
+    "passwordMinChars": "Password (min. 8 characters)",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?"
+  },
+  "dashboard": {
+    "dailyRecord": "Daily Record",
+    "selectSite": "Select Construction Site",
+    "selectCrew": "Select Crew (optional)",
+    "workersPresent": "Workers Present",
+    "hoursWorked": "Hours Worked",
+    "tasksCompleted": "Tasks Completed (comma separated)",
+    "materialsUsed": "Materials Used",
+    "materialName": "Material Name (e.g. cement)",
+    "quantity": "Quantity",
+    "unit": "Unit (kg, bags, pcs)",
+    "addMaterial": "+ Add Material",
+    "removeMaterial": "Remove {{name}}",
+    "submit": "Submit Record",
+    "submitting": "Submitting...",
+    "createSuccess": "Record created successfully!"
+  },
+  "sites": {
+    "title": "Sites",
+    "addNew": "Add New Site",
+    "siteName": "Site Name",
+    "address": "Address",
+    "add": "Add Site",
+    "adding": "Adding...",
+    "latitude": "Latitude (optional)",
+    "longitude": "Longitude (optional)",
+    "viewOnMap": "📍 View on map",
+    "confirmDelete": "Delete this site? This cannot be undone.",
+    "empty": "No sites yet — add your first construction site above"
+  },
+  "crews": {
+    "title": "Crews",
+    "addNew": "Add New Crew",
+    "crewName": "Crew Name",
+    "members": "Members (comma separated)",
+    "add": "Add Crew",
+    "adding": "Adding...",
+    "confirmDelete": "Delete this crew? This cannot be undone.",
+    "empty": "No crews yet — add your first crew above",
+    "memberCount_one": "{{count}} member",
+    "memberCount_other": "{{count}} members"
+  },
+  "home": {
+    "overview": "Overview",
+    "sites": "Sites",
+    "crews": "Crews",
+    "recordsThisMonth": "Records this month",
+    "hoursThisMonth": "Hours this month",
+    "quickActions": "Quick Actions"
+  },
+  "records": {
+    "title": "Work Records",
+    "total_one": "{{count}} record total",
+    "total_other": "{{count}} records total",
+    "downloadReport": "Download PDF Report",
+    "from": "From",
+    "to": "To",
+    "download": "⬇ Download PDF",
+    "downloadCsv": "⬇ Download CSV",
+    "generating": "⏳ Generating...",
+    "noDatesHint": "No dates selected — all records will be included",
+    "filterBySite": "Filter by site",
+    "allSites": "All sites",
+    "hoursByMonth": "Hours by Month",
+    "hoursUnit": "hrs",
+    "recordsWord_one": "record",
+    "recordsWord_other": "records",
+    "workerDaysWord": "worker-days",
+    "empty": "No records yet",
+    "emptyHint": "Create your first work record to get started",
+    "confirmDelete": "Delete this record? This cannot be undone.",
+    "workersTag_one": "👷 {{count}} worker",
+    "workersTag_other": "👷 {{count}} workers",
+    "hoursTag": "⏱ {{count}} hours",
+    "tasks": "Tasks",
+    "materials": "Materials",
+    "updateSuccess": "Record updated successfully!"
+  },
+  "receipts": {
+    "title": "Receipts",
+    "selectSite": "Select Site",
+    "upload": "Upload Receipt",
+    "uploading": "Uploading...",
+    "uploadSuccess": "Receipt uploaded successfully!",
+    "uploaded": "Uploaded Receipts",
+    "empty": "No receipts yet"
+  },
+  "common": {
+    "loading": "Loading...",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "saving": "Saving...",
+    "cancel": "Cancel"
+  }
+}
