@@ -5,7 +5,7 @@ import { logout as apiLogout } from '../api/api.js'
 import LanguageSwitcher from './LanguageSwitcher.jsx'
 
 const linkClasses = (active) =>
-  `block px-3 py-2 rounded-lg text-sm font-medium transition ${
+  `block whitespace-nowrap px-2.5 py-2 rounded-lg text-sm font-medium transition ${
     active ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-100'
   }`
 
@@ -16,7 +16,6 @@ const Navbar = () => {
   const { t } = useTranslation()
 
   const links = [
-    { to: '/home', label: t('nav.home') },
     { to: '/dashboard', label: t('nav.newRecord') },
     { to: '/records', label: t('nav.records') },
     { to: '/crews', label: t('nav.crews') },
@@ -32,13 +31,13 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-20 bg-white border-b border-gray-200">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="flex items-center justify-between h-14">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-14 gap-2">
           <Link to="/home" className="flex items-center gap-2 shrink-0">
             <img src="/logo-sanjo.svg" alt={t('app.name')} className="h-7 w-auto" />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-0.5 overflow-x-auto min-w-0">
             {links.map((link) => (
               <Link
                 key={link.to}
@@ -48,10 +47,10 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            <LanguageSwitcher className="ml-2" />
+            <LanguageSwitcher className="ml-2 shrink-0" />
             <button
               onClick={handleLogout}
-              className="ml-1 px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition"
+              className="ml-1 shrink-0 whitespace-nowrap px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition"
             >
               {t('nav.logout')}
             </button>
