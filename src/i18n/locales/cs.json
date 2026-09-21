@@ -23,7 +23,20 @@
     "password": "Heslo",
     "passwordMinChars": "Heslo (min. 8 znaků)",
     "noAccount": "Nemáte účet?",
-    "haveAccount": "Již máte účet?"
+    "haveAccount": "Již máte účet?",
+    "forgotPassword": "Zapomněli jste heslo?",
+    "forgotPasswordTitle": "Obnovení hesla",
+    "forgotPasswordHint": "Zadejte e-mail a pošleme vám odkaz pro obnovení.",
+    "sendResetLink": "Odeslat odkaz",
+    "sending": "Odesílání...",
+    "resetLinkSent": "Pokud je e-mail registrován, odkaz pro obnovení byl odeslán.",
+    "resetPassword": "Obnovit heslo",
+    "resetPasswordTitle": "Nastavte nové heslo",
+    "newPassword": "Nové heslo (min. 8 znaků)",
+    "resetting": "Obnovování...",
+    "resetSuccess": "Heslo změněno. Přesměrování na přihlášení...",
+    "invalidOrExpiredToken": "Tento odkaz je neplatný nebo vypršel.",
+    "backToLogin": "Zpět na přihlášení"
   },
   "dashboard": {
     "dailyRecord": "Denní záznam",

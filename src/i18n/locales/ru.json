@@ -23,7 +23,20 @@
     "password": "Пароль",
     "passwordMinChars": "Пароль (мин. 8 символов)",
     "noAccount": "Нет аккаунта?",
-    "haveAccount": "Уже есть аккаунт?"
+    "haveAccount": "Уже есть аккаунт?",
+    "forgotPassword": "Забыли пароль?",
+    "forgotPasswordTitle": "Сброс пароля",
+    "forgotPasswordHint": "Введите email — пришлём ссылку для сброса.",
+    "sendResetLink": "Отправить ссылку",
+    "sending": "Отправка...",
+    "resetLinkSent": "Если email зарегистрирован, ссылка для сброса отправлена.",
+    "resetPassword": "Сбросить пароль",
+    "resetPasswordTitle": "Задайте новый пароль",
+    "newPassword": "Новый пароль (мин. 8 символов)",
+    "resetting": "Сброс...",
+    "resetSuccess": "Пароль обновлён. Переход к входу...",
+    "invalidOrExpiredToken": "Ссылка недействительна или истекла.",
+    "backToLogin": "Назад ко входу"
   },
   "dashboard": {
     "dailyRecord": "Ежедневная запись",

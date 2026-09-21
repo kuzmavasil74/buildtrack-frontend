@@ -15,6 +15,14 @@ export const register = async (email, password) => {
   return await api.post('/auth/register', { email, password })
 }
 
+export const forgotPassword = async (email) => {
+  return await api.post('/auth/forgot-password', { email })
+}
+
+export const resetPassword = async (token, password) => {
+  return await api.post('/auth/reset-password', { token, password })
+}
+
 export const logout = async () => {
   return await api.post('/auth/logout')
 }

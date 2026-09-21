@@ -23,7 +23,20 @@
     "password": "Password",
     "passwordMinChars": "Password (min. 8 characters)",
     "noAccount": "Don't have an account?",
-    "haveAccount": "Already have an account?"
+    "haveAccount": "Already have an account?",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Reset your password",
+    "forgotPasswordHint": "Enter your email and we'll send you a reset link.",
+    "sendResetLink": "Send reset link",
+    "sending": "Sending...",
+    "resetLinkSent": "If that email is registered, a reset link has been sent.",
+    "resetPassword": "Reset password",
+    "resetPasswordTitle": "Set a new password",
+    "newPassword": "New password (min. 8 characters)",
+    "resetting": "Resetting...",
+    "resetSuccess": "Password updated. Redirecting to login...",
+    "invalidOrExpiredToken": "This reset link is invalid or has expired.",
+    "backToLogin": "Back to login"
   },
   "dashboard": {
     "dailyRecord": "Daily Record",

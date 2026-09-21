@@ -23,7 +23,20 @@
     "password": "Hasło",
     "passwordMinChars": "Hasło (min. 8 znaków)",
     "noAccount": "Nie masz konta?",
-    "haveAccount": "Masz już konto?"
+    "haveAccount": "Masz już konto?",
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "forgotPasswordTitle": "Resetowanie hasła",
+    "forgotPasswordHint": "Podaj e-mail, a wyślemy link do zresetowania.",
+    "sendResetLink": "Wyślij link",
+    "sending": "Wysyłanie...",
+    "resetLinkSent": "Jeśli e-mail jest zarejestrowany, link został wysłany.",
+    "resetPassword": "Zresetuj hasło",
+    "resetPasswordTitle": "Ustaw nowe hasło",
+    "newPassword": "Nowe hasło (min. 8 znaków)",
+    "resetting": "Resetowanie...",
+    "resetSuccess": "Hasło zaktualizowane. Przekierowanie do logowania...",
+    "invalidOrExpiredToken": "Ten link jest nieprawidłowy lub wygasł.",
+    "backToLogin": "Powrót do logowania"
   },
   "dashboard": {
     "dailyRecord": "Wpis dzienny",

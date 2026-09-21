@@ -23,7 +23,20 @@
     "password": "Пароль",
     "passwordMinChars": "Пароль (мін. 8 символів)",
     "noAccount": "Немає акаунта?",
-    "haveAccount": "Вже маєте акаунт?"
+    "haveAccount": "Вже маєте акаунт?",
+    "forgotPassword": "Забули пароль?",
+    "forgotPasswordTitle": "Скидання паролю",
+    "forgotPasswordHint": "Введіть email — надішлемо посилання для скидання.",
+    "sendResetLink": "Надіслати посилання",
+    "sending": "Надсилання...",
+    "resetLinkSent": "Якщо email зареєстрований, посилання для скидання надіслано.",
+    "resetPassword": "Скинути пароль",
+    "resetPasswordTitle": "Задайте новий пароль",
+    "newPassword": "Новий пароль (мін. 8 символів)",
+    "resetting": "Скидання...",
+    "resetSuccess": "Пароль оновлено. Переходимо до входу...",
+    "invalidOrExpiredToken": "Це посилання недійсне або протерміноване.",
+    "backToLogin": "Назад до входу"
   },
   "dashboard": {
     "dailyRecord": "Щоденний запис",
