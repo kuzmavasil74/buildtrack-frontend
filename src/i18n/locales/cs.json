@@ -8,6 +8,7 @@
     "newRecord": "Nový záznam",
     "records": "Záznamy",
     "crews": "Čety",
+    "payroll": "Mzdy",
     "sites": "Stavby",
     "receipts": "Účtenky",
     "logout": "Odhlásit",
@@ -42,6 +43,8 @@
     "dailyRecord": "Denní záznam",
     "selectSite": "Vyberte staveniště",
     "selectCrew": "Vyberte četu (volitelné)",
+    "scanQr": "📷 Skenovat",
+    "invalidQr": "Neplatný nebo neznámý QR kód",
     "workersPresent": "Přítomní pracovníci",
     "hoursWorked": "Odpracované hodiny",
     "tasksCompleted": "Dokončené úkoly (oddělené čárkou)",
@@ -79,7 +82,10 @@
     "empty": "Zatím žádné čety — přidejte první výše",
     "memberCount_one": "{{count}} člen",
     "memberCount_few": "{{count}} členové",
-    "memberCount_other": "{{count}} členů"
+    "memberCount_other": "{{count}} členů",
+    "hourlyRate": "Hodinová sazba",
+    "perHour": "hod",
+    "qrCode": "QR kód"
   },
   "home": {
     "overview": "Přehled",
@@ -122,6 +128,18 @@
     "tasks": "Úkoly",
     "materials": "Materiály",
     "updateSuccess": "Záznam byl úspěšně aktualizován!"
+  },
+  "payroll": {
+    "title": "Mzdy",
+    "calculate": "Vypočítat",
+    "empty": "Žádná data pro tento období",
+    "member": "Člen",
+    "hours": "Hodin",
+    "rate": "Sazba",
+    "wage": "Mzda",
+    "crewTotal": "Celkem za četu",
+    "unassignedHint": "{{hours}} hod zaznamenáno bez čety — nezahrnuto do mezd",
+    "grandTotal": "Celková částka"
   },
   "receipts": {
     "title": "Účtenky",

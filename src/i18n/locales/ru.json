@@ -8,6 +8,7 @@
     "newRecord": "Новая запись",
     "records": "Записи",
     "crews": "Бригады",
+    "payroll": "Зарплата",
     "sites": "Объекты",
     "receipts": "Чеки",
     "logout": "Выйти",
@@ -42,6 +43,8 @@
     "dailyRecord": "Ежедневная запись",
     "selectSite": "Выберите объект",
     "selectCrew": "Выберите бригаду (необязательно)",
+    "scanQr": "📷 Скан",
+    "invalidQr": "Неверный или неизвестный QR-код",
     "workersPresent": "Присутствующие рабочие",
     "hoursWorked": "Отработанные часы",
     "tasksCompleted": "Выполненные задачи (через запятую)",
@@ -80,7 +83,10 @@
     "memberCount_one": "{{count}} участник",
     "memberCount_few": "{{count}} участника",
     "memberCount_many": "{{count}} участников",
-    "memberCount_other": "{{count}} участника"
+    "memberCount_other": "{{count}} участника",
+    "hourlyRate": "Почасовая ставка",
+    "perHour": "ч",
+    "qrCode": "QR-код"
   },
   "home": {
     "overview": "Обзор",
@@ -123,6 +129,18 @@
     "tasks": "Задачи",
     "materials": "Материалы",
     "updateSuccess": "Запись успешно обновлена!"
+  },
+  "payroll": {
+    "title": "Зарплата",
+    "calculate": "Рассчитать",
+    "empty": "Нет данных для расчёта за этот период",
+    "member": "Участник",
+    "hours": "Часов",
+    "rate": "Ставка",
+    "wage": "Зарплата",
+    "crewTotal": "Итого по бригаде",
+    "unassignedHint": "{{hours}} ч записано без бригады — не учтено в расчёте",
+    "grandTotal": "Общая сумма"
   },
   "receipts": {
     "title": "Чеки",

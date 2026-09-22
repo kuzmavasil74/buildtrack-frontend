@@ -1,13 +1,89 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import QRCode from 'qrcode'
 import { getCrews, createCrew, updateCrew, deleteCrew } from '../api/api.js'
 import Navbar from '../components/Navbar.jsx'
 
-const CrewRow = ({ crew, onSaved, onDelete }) => {
+const parseNames = (text) =>
+  text.split(',').map((m) => m.trim()).filter(Boolean)
+
+const MemberRateFields = ({ members, rates, setRates, t }) => {
+  const names = parseNames(members)
+  if (names.length === 0) return null
+  return (
+    <div className="border border-gray-200 rounded-xl p-3 bg-gray-50 flex flex-col gap-2">
+      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+        {t('crews.hourlyRate')}
+      </p>
+      {names.map((name) => (
+        <div key={name} className="flex items-center gap-2">
+          <span className="text-sm text-gray-700 flex-1 truncate">{name}</span>
+          <input
+            type="number"
+            min="0"
+            step="any"
+            value={rates[name] ?? ''}
+            onChange={(e) => setRates({ ...rates, [name]: e.target.value })}
+            placeholder="0"
+            className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm w-28 bg-white focus:outline-none focus:border-blue-500"
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const QrModal = ({ crew, onClose, t }) => {
+  const [dataUrl, setDataUrl] = useState(null)
+
+  useEffect(() => {
+    let cancelled = false
+    QRCode.toDataURL(`sanjo-crew:${crew.id}`, {
+      width: 280,
+      margin: 1,
+      color: { dark: '#001659', light: '#FFFFFF' },
+    }).then((url) => {
+      if (!cancelled) setDataUrl(url)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [crew.id])
+
+  return (
+    <div
+      className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-xl p-6 max-w-xs w-full text-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <p className="font-semibold text-gray-800 mb-4">{crew.name}</p>
+        {dataUrl ? (
+          <img src={dataUrl} alt={`QR ${crew.name}`} className="mx-auto rounded-lg" />
+        ) : (
+          <div className="h-[280px] flex items-center justify-center text-gray-400 text-sm">
+            {t('common.loading')}
+          </div>
+        )}
+        <button
+          onClick={onClose}
+          className="mt-4 w-full bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition text-sm font-semibold"
+        >
+          {t('common.cancel')}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+const CrewRow = ({ crew, onSaved, onDelete, onShowQr }) => {
   const { t } = useTranslation()
   const [editing, setEditing] = useState(false)
   const [name, setName] = useState(crew.name)
   const [members, setMembers] = useState(crew.members.join(', '))
+  const [rates, setRates] = useState(crew.member_rates || {})
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
 
@@ -17,7 +93,8 @@ const CrewRow = ({ crew, onSaved, onDelete }) => {
     try {
       await updateCrew(crew.id, {
         name,
-        members: members.split(',').map((m) => m.trim()).filter(Boolean),
+        members: parseNames(members),
+        memberRates: rates,
       })
       setEditing(false)
       onSaved()
@@ -43,6 +120,7 @@ const CrewRow = ({ crew, onSaved, onDelete }) => {
           placeholder={t('crews.members')}
           className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
         />
+        <MemberRateFields members={members} rates={rates} setRates={setRates} t={t} />
         {error && <p className="text-red-500 text-sm">{error}</p>}
         <div className="flex gap-2">
           <button
@@ -71,22 +149,37 @@ const CrewRow = ({ crew, onSaved, onDelete }) => {
           {t('crews.memberCount', { count: crew.members.length })}
         </p>
         {crew.members.length > 0 && (
-          <p className="text-gray-400 text-xs">{crew.members.join(', ')}</p>
+          <p className="text-gray-400 text-xs">
+            {crew.members
+              .map((m) => {
+                const rate = Number(crew.member_rates?.[m]) || 0
+                return rate > 0 ? `${m} (${rate}/${t('crews.perHour')})` : m
+              })
+              .join(', ')}
+          </p>
         )}
       </div>
-      <div className="shrink-0 flex gap-2">
+      <div className="shrink-0 flex flex-col gap-2 items-end">
         <button
-          onClick={() => setEditing(true)}
-          className="bg-gray-100 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-200 transition text-sm"
+          onClick={() => onShowQr(crew)}
+          className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-lg hover:bg-indigo-100 transition text-sm"
         >
-          {t('common.edit')}
+          {t('crews.qrCode')}
         </button>
-        <button
-          onClick={() => onDelete(crew.id)}
-          className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition text-sm"
-        >
-          {t('common.delete')}
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setEditing(true)}
+            className="bg-gray-100 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-200 transition text-sm"
+          >
+            {t('common.edit')}
+          </button>
+          <button
+            onClick={() => onDelete(crew.id)}
+            className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition text-sm"
+          >
+            {t('common.delete')}
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -96,9 +189,11 @@ export default function Crews() {
   const { t } = useTranslation()
   const [name, setName] = useState('')
   const [members, setMembers] = useState('')
+  const [rates, setRates] = useState({})
   const [crews, setCrews] = useState([])
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [qrCrew, setQrCrew] = useState(null)
 
   const refresh = async () => {
     const res = await getCrews()
@@ -116,10 +211,12 @@ export default function Crews() {
     try {
       await createCrew({
         name,
-        members: members.split(',').map((m) => m.trim()).filter(Boolean),
+        members: parseNames(members),
+        memberRates: rates,
       })
       setName('')
       setMembers('')
+      setRates({})
       await refresh()
     } catch (err) {
       setError(err.response?.data?.message || err.message)
@@ -160,6 +257,7 @@ export default function Crews() {
                 placeholder={t('crews.members')}
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
               />
+              <MemberRateFields members={members} rates={rates} setRates={setRates} t={t} />
               <button
                 type="submit"
                 disabled={loading}
@@ -181,11 +279,13 @@ export default function Crews() {
                 crew={crew}
                 onSaved={refresh}
                 onDelete={handleDeleteCrew}
+                onShowQr={setQrCrew}
               />
             ))
           )}
         </div>
       </div>
+      {qrCrew && <QrModal crew={qrCrew} onClose={() => setQrCrew(null)} t={t} />}
     </div>
   )
 }

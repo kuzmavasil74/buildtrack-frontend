@@ -101,3 +101,15 @@ export const getReceipts = async (siteId) => {
 export const getMonthlyStats = async () => {
   return await api.get('/records/monthly-stats')
 }
+export const getPayroll = async ({ from, to } = {}) => {
+  const params = {}
+  if (from) params.from = from
+  if (to) params.to = to
+  return await api.get('/records/payroll', { params })
+}
+export const downloadPayrollCsv = async ({ from, to } = {}) => {
+  const params = {}
+  if (from) params.from = from
+  if (to) params.to = to
+  return await api.get('/records/payroll.csv', { params, responseType: 'blob' })
+}

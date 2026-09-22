@@ -19,6 +19,7 @@ const Navbar = () => {
     { to: '/dashboard', label: t('nav.newRecord') },
     { to: '/records', label: t('nav.records') },
     { to: '/crews', label: t('nav.crews') },
+    { to: '/payroll', label: t('nav.payroll') },
     { to: '/sites', label: t('nav.sites') },
     { to: '/receipts', label: t('nav.receipts') },
   ]

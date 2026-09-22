@@ -8,6 +8,7 @@
     "newRecord": "Nowy wpis",
     "records": "Wpisy",
     "crews": "Brygady",
+    "payroll": "Wypłaty",
     "sites": "Budowy",
     "receipts": "Paragony",
     "logout": "Wyloguj",
@@ -42,6 +43,8 @@
     "dailyRecord": "Wpis dzienny",
     "selectSite": "Wybierz plac budowy",
     "selectCrew": "Wybierz brygadę (opcjonalnie)",
+    "scanQr": "📷 Skanuj",
+    "invalidQr": "Nieprawidłowy lub nieznany kod QR",
     "workersPresent": "Obecni pracownicy",
     "hoursWorked": "Przepracowane godziny",
     "tasksCompleted": "Wykonane zadania (oddzielone przecinkami)",
@@ -80,7 +83,10 @@
     "memberCount_one": "{{count}} członek",
     "memberCount_few": "{{count}} członków",
     "memberCount_many": "{{count}} członków",
-    "memberCount_other": "{{count}} członka"
+    "memberCount_other": "{{count}} członka",
+    "hourlyRate": "Stawka godzinowa",
+    "perHour": "godz",
+    "qrCode": "Kod QR"
   },
   "home": {
     "overview": "Przegląd",
@@ -123,6 +129,18 @@
     "tasks": "Zadania",
     "materials": "Materiały",
     "updateSuccess": "Wpis został zaktualizowany!"
+  },
+  "payroll": {
+    "title": "Wypłaty",
+    "calculate": "Oblicz",
+    "empty": "Brak danych do rozliczenia za ten okres",
+    "member": "Członek",
+    "hours": "Godziny",
+    "rate": "Stawka",
+    "wage": "Wynagrodzenie",
+    "crewTotal": "Razem dla brygady",
+    "unassignedHint": "{{hours}} godz. zapisanych bez brygady — nieuwzględnione w wypłatach",
+    "grandTotal": "Suma całkowita"
   },
   "receipts": {
     "title": "Paragony",

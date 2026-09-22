@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useTranslation } from 'react-i18next'
 import Navbar from '../components/Navbar.jsx'
+import QrScanner from '../components/QrScanner.jsx'
 
 const Dashboard = () => {
   const { t } = useTranslation()
@@ -21,6 +22,7 @@ const Dashboard = () => {
   const [sites, setSites] = useState([])
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [scanning, setScanning] = useState(false)
   const submit = async (e) => {
     e.preventDefault()
     setError('')
@@ -70,6 +72,18 @@ const Dashboard = () => {
     const crew = crews.find((c) => String(c.id) === value)
     if (crew) setworkersPresent(String(crew.members.length))
   }
+  const handleQrScan = (data) => {
+    setScanning(false)
+    const match = /^sanjo-crew:(\d+)$/.exec(data || '')
+    const id = match?.[1]
+    const crew = id && crews.find((c) => String(c.id) === id)
+    if (crew) {
+      handleCrewChange(id)
+      setError('')
+    } else {
+      setError(t('dashboard.invalidQr'))
+    }
+  }
   useEffect(() => {
     getSites().then((res) => setSites(res.data.sites))
     getCrews().then((res) => setCrews(res.data.crews))
@@ -96,18 +110,27 @@ const Dashboard = () => {
                   </option>
                 ))}
               </select>
-              <select
-                value={crewId}
-                onChange={(e) => handleCrewChange(e.target.value)}
-                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-              >
-                <option value="">{t('dashboard.selectCrew')}</option>
-                {crews.map((crew) => (
-                  <option key={crew.id} value={crew.id}>
-                    {crew.name} ({crew.members.length})
-                  </option>
-                ))}
-              </select>
+              <div className="flex gap-2">
+                <select
+                  value={crewId}
+                  onChange={(e) => handleCrewChange(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-4 py-2 flex-1 min-w-0 focus:outline-none focus:border-blue-500"
+                >
+                  <option value="">{t('dashboard.selectCrew')}</option>
+                  {crews.map((crew) => (
+                    <option key={crew.id} value={crew.id}>
+                      {crew.name} ({crew.members.length})
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={() => setScanning(true)}
+                  className="shrink-0 bg-gray-700 text-white px-3 rounded-lg hover:bg-gray-800 transition text-sm font-semibold"
+                >
+                  {t('dashboard.scanQr')}
+                </button>
+              </div>
               <DatePicker
                 selected={date}
                 onChange={(date) => setDate(date)}
@@ -208,6 +231,9 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      {scanning && (
+        <QrScanner onScan={handleQrScan} onClose={() => setScanning(false)} />
+      )}
     </div>
   )
 }

@@ -10,6 +10,7 @@ import Main from './pages/Main.jsx'
 import Records from './pages/Records.jsx'
 import Sites from './pages/Sites.jsx'
 import Crews from './pages/Crews.jsx'
+import Payroll from './pages/Payroll.jsx'
 import Receipts from './pages/Receipts.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import './App.css'
@@ -60,6 +61,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Sites />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payroll"
+          element={
+            <ProtectedRoute>
+              <Payroll />
             </ProtectedRoute>
           }
         />

@@ -8,6 +8,7 @@
     "newRecord": "New Record",
     "records": "Records",
     "crews": "Crews",
+    "payroll": "Payroll",
     "sites": "Sites",
     "receipts": "Receipts",
     "logout": "Logout",
@@ -42,6 +43,8 @@
     "dailyRecord": "Daily Record",
     "selectSite": "Select Construction Site",
     "selectCrew": "Select Crew (optional)",
+    "scanQr": "📷 Scan",
+    "invalidQr": "Invalid or unknown QR code",
     "workersPresent": "Workers Present",
     "hoursWorked": "Hours Worked",
     "tasksCompleted": "Tasks Completed (comma separated)",
@@ -78,7 +81,10 @@
     "confirmDelete": "Delete this crew? This cannot be undone.",
     "empty": "No crews yet — add your first crew above",
     "memberCount_one": "{{count}} member",
-    "memberCount_other": "{{count}} members"
+    "memberCount_other": "{{count}} members",
+    "hourlyRate": "Hourly Rate",
+    "perHour": "hr",
+    "qrCode": "QR Code"
   },
   "home": {
     "overview": "Overview",
@@ -115,6 +121,18 @@
     "tasks": "Tasks",
     "materials": "Materials",
     "updateSuccess": "Record updated successfully!"
+  },
+  "payroll": {
+    "title": "Payroll",
+    "calculate": "Calculate",
+    "empty": "No payroll data for this period",
+    "member": "Member",
+    "hours": "Hours",
+    "rate": "Rate",
+    "wage": "Wage",
+    "crewTotal": "Crew total",
+    "unassignedHint": "{{hours}} hrs logged without a crew — not included in payroll",
+    "grandTotal": "Grand total"
   },
   "receipts": {
     "title": "Receipts",

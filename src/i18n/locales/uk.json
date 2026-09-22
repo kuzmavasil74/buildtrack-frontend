@@ -8,6 +8,7 @@
     "newRecord": "Новий запис",
     "records": "Записи",
     "crews": "Бригади",
+    "payroll": "Зарплата",
     "sites": "Об'єкти",
     "receipts": "Чеки",
     "logout": "Вийти",
@@ -42,6 +43,8 @@
     "dailyRecord": "Щоденний запис",
     "selectSite": "Оберіть об'єкт",
     "selectCrew": "Оберіть бригаду (необов'язково)",
+    "scanQr": "📷 Скан",
+    "invalidQr": "Невірний або невідомий QR-код",
     "workersPresent": "Присутні працівники",
     "hoursWorked": "Відпрацьовані години",
     "tasksCompleted": "Виконані завдання (через кому)",
@@ -80,7 +83,10 @@
     "memberCount_one": "{{count}} учасник",
     "memberCount_few": "{{count}} учасники",
     "memberCount_many": "{{count}} учасників",
-    "memberCount_other": "{{count}} учасника"
+    "memberCount_other": "{{count}} учасника",
+    "hourlyRate": "Погодинна ставка",
+    "perHour": "год",
+    "qrCode": "QR-код"
   },
   "home": {
     "overview": "Огляд",
@@ -123,6 +129,18 @@
     "tasks": "Завдання",
     "materials": "Матеріали",
     "updateSuccess": "Запис успішно оновлено!"
+  },
+  "payroll": {
+    "title": "Зарплата",
+    "calculate": "Розрахувати",
+    "empty": "Немає даних для розрахунку за цей період",
+    "member": "Учасник",
+    "hours": "Годин",
+    "rate": "Ставка",
+    "wage": "Зарплата",
+    "crewTotal": "Разом по бригаді",
+    "unassignedHint": "{{hours}} год записано без бригади — не враховано в розрахунку",
+    "grandTotal": "Загальна сума"
   },
   "receipts": {
     "title": "Чеки",
