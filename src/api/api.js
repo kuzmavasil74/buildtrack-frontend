@@ -1,6 +1,10 @@
 import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+// In production the API is reached through Vercel's same-origin /api rewrite so the
+// auth cookie is first-party; iOS Safari drops cross-site (vercel.app -> onrender.com) cookies.
+const API_URL = import.meta.env.PROD
+  ? '/api'
+  : import.meta.env.VITE_API_URL || 'http://localhost:4000'
 
 const api = axios.create({
   baseURL: API_URL,
