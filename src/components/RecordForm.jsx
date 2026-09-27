@@ -3,13 +3,17 @@ import { useTranslation } from 'react-i18next'
 import QrScanner from './QrScanner.jsx'
 
 const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/
+const LUNCH_BREAK_MINUTES = 30
 
+// Hours between two clock times, minus an automatic 30-minute lunch break
+// (never below 0).
 const hoursBetween = (start, end) => {
   if (!TIME_RE.test(start) || !TIME_RE.test(end)) return ''
   const [sh, sm] = start.split(':').map(Number)
   const [eh, em] = end.split(':').map(Number)
   let minutes = eh * 60 + em - (sh * 60 + sm)
   if (minutes < 0) minutes += 24 * 60
+  minutes = Math.max(minutes - LUNCH_BREAK_MINUTES, 0)
   return String(Math.round((minutes / 60) * 100) / 100)
 }
 
@@ -77,6 +81,9 @@ export default function RecordForm({
   const [materialUnit, setMaterialUnit] = useState('')
   const [bulkStart, setBulkStart] = useState('')
   const [bulkEnd, setBulkEnd] = useState('')
+  // Hidden by default: hours are entered per worker directly, this is only
+  // a shortcut for when everyone worked the same shift.
+  const [showBulkTime, setShowBulkTime] = useState(false)
   const [scanning, setScanning] = useState(false)
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -143,11 +150,19 @@ export default function RecordForm({
 
   const removeEntry = (index) => setEntries((current) => current.filter((_, i) => i !== index))
 
+  // Filling in only Start or only End (not both) is fine: that one field
+  // gets applied to every worker, hours stay as they were.
   const applyTimeToAll = () => {
-    const computed = hoursBetween(bulkStart, bulkEnd)
-    if (!computed) return
+    if (!bulkStart && !bulkEnd) return
     setEntries((current) =>
-      current.map((e) => ({ ...e, startTime: bulkStart, endTime: bulkEnd, hours: computed }))
+      current.map((e) => {
+        const next = { ...e }
+        if (bulkStart) next.startTime = bulkStart
+        if (bulkEnd) next.endTime = bulkEnd
+        const computed = hoursBetween(next.startTime, next.endTime)
+        if (computed) next.hours = computed
+        return next
+      })
     )
   }
 
@@ -282,34 +297,54 @@ export default function RecordForm({
       )}
 
       <div className="border border-gray-200 rounded-xl p-3 sm:p-4 bg-gray-50">
-        <p className="text-sm font-semibold text-gray-600 mb-3">{t('dashboard.workers')}</p>
+        <p className="text-sm font-semibold text-gray-600 mb-1">{t('dashboard.workers')}</p>
+        <p className="text-xs text-gray-400 mb-3">{t('dashboard.lunchBreakHint')}</p>
 
         {entries.length > 1 && (
-          <div className="flex flex-wrap items-center gap-2 mb-3 pb-3 border-b border-gray-200">
-            <span className="text-xs text-gray-500">{t('dashboard.applyToAll')}</span>
-            <input
-              type="time"
-              value={bulkStart}
-              onChange={(e) => setBulkStart(e.target.value)}
-              className={inputClass}
-              aria-label={t('dashboard.startTime')}
-            />
-            <span className="text-gray-400">–</span>
-            <input
-              type="time"
-              value={bulkEnd}
-              onChange={(e) => setBulkEnd(e.target.value)}
-              className={inputClass}
-              aria-label={t('dashboard.endTime')}
-            />
-            <button
-              type="button"
-              onClick={applyTimeToAll}
-              disabled={!hoursBetween(bulkStart, bulkEnd)}
-              className="bg-gray-700 text-white px-3 py-2 rounded-lg hover:bg-gray-800 transition text-sm font-semibold disabled:opacity-40"
-            >
-              {t('dashboard.apply')}
-            </button>
+          <div className="mb-3 pb-3 border-b border-gray-200">
+            {showBulkTime ? (
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-gray-500">{t('dashboard.applyToAll')}</span>
+                <input
+                  type="time"
+                  value={bulkStart}
+                  onChange={(e) => setBulkStart(e.target.value)}
+                  className={inputClass}
+                  aria-label={t('dashboard.startTime')}
+                />
+                <span className="text-gray-400">–</span>
+                <input
+                  type="time"
+                  value={bulkEnd}
+                  onChange={(e) => setBulkEnd(e.target.value)}
+                  className={inputClass}
+                  aria-label={t('dashboard.endTime')}
+                />
+                <button
+                  type="button"
+                  onClick={applyTimeToAll}
+                  disabled={!bulkStart && !bulkEnd}
+                  className="bg-gray-700 text-white px-3 py-2 rounded-lg hover:bg-gray-800 transition text-sm font-semibold disabled:opacity-40"
+                >
+                  {t('dashboard.apply')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowBulkTime(false)}
+                  className="text-xs text-gray-400 hover:text-gray-600 ml-auto"
+                >
+                  {t('common.cancel')}
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setShowBulkTime(true)}
+                className="text-xs text-blue-600 hover:text-blue-700 font-semibold"
+              >
+                {t('dashboard.setSameTime')}
+              </button>
+            )}
           </div>
         )}
 

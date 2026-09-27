@@ -74,7 +74,9 @@
     "totalLine": "Celkem: {{workers}} pracovníků · {{hours}} hod",
     "entryInvalid": "Každý pracovník musí mít jméno a hodiny od 0 do 24",
     "noWorkers": "Přidejte alespoň jednoho pracovníka s hodinami",
-    "legacyHint": "Starý záznam: {{workers}} pracovníků, celkem {{hours}} hod. Přidejte pracovníky a nahraďte ho hodinami na osobu."
+    "legacyHint": "Starý záznam: {{workers}} pracovníků, celkem {{hours}} hod. Přidejte pracovníky a nahraďte ho hodinami na osobu.",
+    "setSameTime": "+ Nastavit stejný čas pro všechny",
+    "lunchBreakHint": "Hodiny podle začátku/konce se automaticky zkracují o 30min oběd"
   },
   "sites": {
     "title": "Stavby",

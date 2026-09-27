@@ -74,7 +74,9 @@
     "totalLine": "Razem: {{workers}} pracowników · {{hours}} godz.",
     "entryInvalid": "Każdy pracownik musi mieć imię i godziny od 0 do 24",
     "noWorkers": "Dodaj co najmniej jednego pracownika z godzinami",
-    "legacyHint": "Stary wpis: {{workers}} pracowników, {{hours}} godz. łącznie. Dodaj pracowników, aby zastąpić go godzinami na osobę."
+    "legacyHint": "Stary wpis: {{workers}} pracowników, {{hours}} godz. łącznie. Dodaj pracowników, aby zastąpić go godzinami na osobę.",
+    "setSameTime": "+ Ustaw taki sam czas dla wszystkich",
+    "lunchBreakHint": "Godziny z początku/końca automatycznie pomniejszane o 30-minutową przerwę obiadową"
   },
   "sites": {
     "title": "Budowy",

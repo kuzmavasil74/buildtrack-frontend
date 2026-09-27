@@ -74,7 +74,9 @@
     "totalLine": "Total: {{workers}} workers · {{hours}} hrs",
     "entryInvalid": "Each worker needs a name and hours between 0 and 24",
     "noWorkers": "Add at least one worker with hours",
-    "legacyHint": "Old record: {{workers}} workers, {{hours}} hrs total. Add workers to replace it with per-person hours."
+    "legacyHint": "Old record: {{workers}} workers, {{hours}} hrs total. Add workers to replace it with per-person hours.",
+    "setSameTime": "+ Set the same time for everyone",
+    "lunchBreakHint": "Hours from start/end automatically subtract a 30-minute lunch break"
   },
   "sites": {
     "title": "Sites",
