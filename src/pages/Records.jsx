@@ -9,12 +9,23 @@ import {
   getCrews,
   deleteRecord,
   getMonthlyStats,
+  getWorkerDirectory,
 } from '../api/api.js'
 import Navbar from '../components/Navbar.jsx'
 import RecordForm from '../components/RecordForm.jsx'
 import { LOCALE_MAP } from '../i18n/config.js'
 
-const RecordCard = ({ record, sites, crews, getSiteName, onSaved, onDelete, t, locale }) => {
+const RecordCard = ({
+  record,
+  sites,
+  crews,
+  workerDirectory,
+  getSiteName,
+  onSaved,
+  onDelete,
+  t,
+  locale,
+}) => {
   const [editing, setEditing] = useState(false)
   const crew = crews.find((c) => c.id === record.crewId)
 
@@ -31,6 +42,7 @@ const RecordCard = ({ record, sites, crews, getSiteName, onSaved, onDelete, t, l
           record={record}
           sites={sites}
           crews={crews}
+          workerDirectory={workerDirectory}
           submitLabel={t('common.save')}
           submittingLabel={t('common.saving')}
           onSubmit={handleSave}
@@ -150,6 +162,7 @@ export default function Records() {
   const [records, setRecords] = useState([])
   const [sites, setSites] = useState([])
   const [crews, setCrews] = useState([])
+  const [workerDirectory, setWorkerDirectory] = useState([])
   const [monthlyStats, setMonthlyStats] = useState([])
   const [siteFilter, setSiteFilter] = useState('')
   const [from, setFrom] = useState('')
@@ -162,11 +175,17 @@ export default function Records() {
     setRecords(res.data.records)
   }
 
+  const refreshAfterSave = async () => {
+    await refreshRecords()
+    getWorkerDirectory().then((res) => setWorkerDirectory(res.data.workers))
+  }
+
   useEffect(() => {
     refreshRecords()
     getSites().then((res) => setSites(res.data.sites))
     getCrews().then((res) => setCrews(res.data.crews))
     getMonthlyStats().then((res) => setMonthlyStats(res.data.stats))
+    getWorkerDirectory().then((res) => setWorkerDirectory(res.data.workers))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -335,8 +354,9 @@ export default function Records() {
                   record={record}
                   sites={sites}
                   crews={crews}
+                  workerDirectory={workerDirectory}
                   getSiteName={getSiteName}
-                  onSaved={refreshRecords}
+                  onSaved={refreshAfterSave}
                   onDelete={handleDeleteRecord}
                   t={t}
                   locale={locale}

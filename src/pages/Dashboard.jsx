@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { createRecord, getSites, getCrews } from '../api/api.js'
+import { createRecord, getSites, getCrews, getWorkerDirectory } from '../api/api.js'
 import { useTranslation } from 'react-i18next'
 import Navbar from '../components/Navbar.jsx'
 import RecordForm from '../components/RecordForm.jsx'
@@ -8,17 +8,23 @@ const Dashboard = () => {
   const { t } = useTranslation()
   const [sites, setSites] = useState([])
   const [crews, setCrews] = useState([])
+  const [workerDirectory, setWorkerDirectory] = useState([])
   // Bumping the key remounts the form, which clears it after a successful save.
   const [formKey, setFormKey] = useState(0)
+
+  const refreshWorkerDirectory = () =>
+    getWorkerDirectory().then((res) => setWorkerDirectory(res.data.workers))
 
   useEffect(() => {
     getSites().then((res) => setSites(res.data.sites))
     getCrews().then((res) => setCrews(res.data.crews))
+    refreshWorkerDirectory()
   }, [])
 
   const handleSubmit = async (payload) => {
     await createRecord(payload)
     setFormKey((k) => k + 1)
+    refreshWorkerDirectory()
     alert(t('dashboard.createSuccess'))
   }
 
@@ -35,6 +41,7 @@ const Dashboard = () => {
               key={formKey}
               sites={sites}
               crews={crews}
+              workerDirectory={workerDirectory}
               submitLabel={t('dashboard.submit')}
               submittingLabel={t('dashboard.submitting')}
               onSubmit={handleSubmit}

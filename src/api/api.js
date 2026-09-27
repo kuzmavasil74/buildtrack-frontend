@@ -105,6 +105,9 @@ export const getReceipts = async (siteId) => {
 export const getMonthlyStats = async () => {
   return await api.get('/records/monthly-stats')
 }
+export const getWorkerDirectory = async () => {
+  return await api.get('/records/worker-directory')
+}
 export const getPayroll = async ({ from, to } = {}) => {
   const params = {}
   if (from) params.from = from

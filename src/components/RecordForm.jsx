@@ -48,6 +48,7 @@ export default function RecordForm({
   record,
   sites,
   crews,
+  workerDirectory = [],
   submitLabel,
   submittingLabel,
   onSubmit,
@@ -73,13 +74,17 @@ export default function RecordForm({
   const [submitting, setSubmitting] = useState(false)
 
   const selectedCrew = crews.find((c) => String(c.id) === crewId)
-  const allNames = [...new Set(crews.flatMap((c) => c.members))]
+  const allNames = [
+    ...new Set([...crews.flatMap((c) => c.members), ...workerDirectory.map((w) => w.name)]),
+  ]
 
   const rateFor = (name) => {
     const crew =
       (selectedCrew?.members.includes(name) && selectedCrew) ||
       crews.find((c) => c.members.includes(name))
-    return crew?.member_rates?.[name] ?? ''
+    if (crew?.member_rates?.[name] != null) return crew.member_rates[name]
+    const remembered = workerDirectory.find((w) => w.name === name)
+    return remembered?.rate ?? ''
   }
 
   const memberRow = (crew, name) => ({
