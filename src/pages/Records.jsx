@@ -14,17 +14,7 @@ import {
 import Navbar from '../components/Navbar.jsx'
 import RecordForm from '../components/RecordForm.jsx'
 import { LOCALE_MAP } from '../i18n/config.js'
-
-const pad = (n) => String(n).padStart(2, '0')
-const dateStr = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`
-// [firstDay, lastDay] of the calendar month a Date falls in, as "YYYY-MM-DD".
-const monthRange = (date) => {
-  const y = date.getFullYear()
-  const m = date.getMonth()
-  const lastDay = new Date(y, m + 1, 0).getDate()
-  return { from: dateStr(y, m, 1), to: dateStr(y, m, lastDay) }
-}
-const sameMonth = (date, year, month) => date.getFullYear() === year && date.getMonth() === month - 1
+import { monthRange, sameMonth } from '../utils/monthRange.js'
 
 const RecordCard = ({
   record,
