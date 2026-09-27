@@ -56,7 +56,25 @@
     "removeMaterial": "Odebrat {{name}}",
     "submit": "Odeslat záznam",
     "submitting": "Odesílání...",
-    "createSuccess": "Záznam byl úspěšně vytvořen!"
+    "createSuccess": "Záznam byl úspěšně vytvořen!",
+    "siteRequired": "Vyberte stavbu",
+    "siteNote": "Popis provedených prací na stavbě",
+    "crewNote": "Popis prací čety",
+    "workers": "Pracovníci",
+    "addWorker": "+ Přidat pracovníka",
+    "removeWorker": "Odebrat {{name}}",
+    "workerName": "Jméno pracovníka",
+    "startTime": "Začátek",
+    "endTime": "Konec",
+    "hoursShort": "Hodiny",
+    "rate": "Sazba",
+    "workerNote": "Popis prací pracovníka",
+    "applyToAll": "Stejný čas pro všechny:",
+    "apply": "Použít",
+    "totalLine": "Celkem: {{workers}} pracovníků · {{hours}} hod",
+    "entryInvalid": "Každý pracovník musí mít jméno a hodiny od 0 do 24",
+    "noWorkers": "Přidejte alespoň jednoho pracovníka s hodinami",
+    "legacyHint": "Starý záznam: {{workers}} pracovníků, celkem {{hours}} hod. Přidejte pracovníky a nahraďte ho hodinami na osobu."
   },
   "sites": {
     "title": "Stavby",
@@ -127,7 +145,9 @@
     "hoursTag": "⏱ {{count}} hod",
     "tasks": "Úkoly",
     "materials": "Materiály",
-    "updateSuccess": "Záznam byl úspěšně aktualizován!"
+    "updateSuccess": "Záznam byl úspěšně aktualizován!",
+    "crewWork": "Práce čety",
+    "workers": "Pracovníci"
   },
   "payroll": {
     "title": "Mzdy",
@@ -139,7 +159,8 @@
     "wage": "Mzda",
     "crewTotal": "Celkem za četu",
     "unassignedHint": "{{hours}} hod zaznamenáno bez čety — nezahrnuto do mezd",
-    "grandTotal": "Celková částka"
+    "grandTotal": "Celková částka",
+    "noCrew": "Bez čety"
   },
   "receipts": {
     "title": "Účtenky",

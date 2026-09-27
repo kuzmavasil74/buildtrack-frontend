@@ -106,11 +106,11 @@ export default function Payroll() {
             <div className="flex flex-col gap-4">
               {crews.map((crew) => (
                 <div
-                  key={crew.crewId}
+                  key={crew.crewId ?? 'none'}
                   className="bg-white rounded-xl p-5 shadow-sm border border-gray-200"
                 >
                   <div className="flex justify-between items-baseline mb-3">
-                    <p className="font-bold text-gray-900">{crew.crewName}</p>
+                    <p className="font-bold text-gray-900">{crew.crewName ?? t('payroll.noCrew')}</p>
                     <p className="text-sm text-gray-500">
                       {crew.totalHours} {t('records.hoursUnit')}
                     </p>

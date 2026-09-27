@@ -56,7 +56,25 @@
     "removeMaterial": "Usuń {{name}}",
     "submit": "Wyślij wpis",
     "submitting": "Wysyłanie...",
-    "createSuccess": "Wpis został utworzony!"
+    "createSuccess": "Wpis został utworzony!",
+    "siteRequired": "Wybierz budowę",
+    "siteNote": "Opis wykonanych prac na budowie",
+    "crewNote": "Opis prac brygady",
+    "workers": "Pracownicy",
+    "addWorker": "+ Dodaj pracownika",
+    "removeWorker": "Usuń {{name}}",
+    "workerName": "Imię pracownika",
+    "startTime": "Start",
+    "endTime": "Koniec",
+    "hoursShort": "Godziny",
+    "rate": "Stawka",
+    "workerNote": "Opis prac pracownika",
+    "applyToAll": "Ten sam czas dla wszystkich:",
+    "apply": "Zastosuj",
+    "totalLine": "Razem: {{workers}} pracowników · {{hours}} godz.",
+    "entryInvalid": "Każdy pracownik musi mieć imię i godziny od 0 do 24",
+    "noWorkers": "Dodaj co najmniej jednego pracownika z godzinami",
+    "legacyHint": "Stary wpis: {{workers}} pracowników, {{hours}} godz. łącznie. Dodaj pracowników, aby zastąpić go godzinami na osobę."
   },
   "sites": {
     "title": "Budowy",
@@ -128,7 +146,9 @@
     "hoursTag": "⏱ {{count}} godz.",
     "tasks": "Zadania",
     "materials": "Materiały",
-    "updateSuccess": "Wpis został zaktualizowany!"
+    "updateSuccess": "Wpis został zaktualizowany!",
+    "crewWork": "Prace brygady",
+    "workers": "Pracownicy"
   },
   "payroll": {
     "title": "Wypłaty",
@@ -140,7 +160,8 @@
     "wage": "Wynagrodzenie",
     "crewTotal": "Razem dla brygady",
     "unassignedHint": "{{hours}} godz. zapisanych bez brygady — nieuwzględnione w wypłatach",
-    "grandTotal": "Suma całkowita"
+    "grandTotal": "Suma całkowita",
+    "noCrew": "Bez brygady"
   },
   "receipts": {
     "title": "Paragony",

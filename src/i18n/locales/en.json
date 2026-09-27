@@ -56,7 +56,25 @@
     "removeMaterial": "Remove {{name}}",
     "submit": "Submit Record",
     "submitting": "Submitting...",
-    "createSuccess": "Record created successfully!"
+    "createSuccess": "Record created successfully!",
+    "siteRequired": "Select a site",
+    "siteNote": "Work description for the site",
+    "crewNote": "Work description for the crew",
+    "workers": "Workers",
+    "addWorker": "+ Add worker",
+    "removeWorker": "Remove {{name}}",
+    "workerName": "Worker name",
+    "startTime": "Start",
+    "endTime": "End",
+    "hoursShort": "Hours",
+    "rate": "Rate",
+    "workerNote": "Work description for this worker",
+    "applyToAll": "Same time for all:",
+    "apply": "Apply",
+    "totalLine": "Total: {{workers}} workers · {{hours}} hrs",
+    "entryInvalid": "Each worker needs a name and hours between 0 and 24",
+    "noWorkers": "Add at least one worker with hours",
+    "legacyHint": "Old record: {{workers}} workers, {{hours}} hrs total. Add workers to replace it with per-person hours."
   },
   "sites": {
     "title": "Sites",
@@ -120,7 +138,9 @@
     "hoursTag": "⏱ {{count}} hours",
     "tasks": "Tasks",
     "materials": "Materials",
-    "updateSuccess": "Record updated successfully!"
+    "updateSuccess": "Record updated successfully!",
+    "crewWork": "Crew work",
+    "workers": "Workers"
   },
   "payroll": {
     "title": "Payroll",
@@ -132,7 +152,8 @@
     "wage": "Wage",
     "crewTotal": "Crew total",
     "unassignedHint": "{{hours}} hrs logged without a crew — not included in payroll",
-    "grandTotal": "Grand total"
+    "grandTotal": "Grand total",
+    "noCrew": "No crew"
   },
   "receipts": {
     "title": "Receipts",

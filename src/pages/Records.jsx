@@ -11,134 +11,31 @@ import {
   getMonthlyStats,
 } from '../api/api.js'
 import Navbar from '../components/Navbar.jsx'
+import RecordForm from '../components/RecordForm.jsx'
 import { LOCALE_MAP } from '../i18n/config.js'
-
-const parseMaterialsText = (text) =>
-  text
-    .split(',')
-    .map((chunk) => chunk.trim())
-    .filter(Boolean)
-    .map((chunk) => {
-      const [name = '', quantity = '', unit = ''] = chunk.split(':').map((s) => s.trim())
-      return { name, quantity: Number(quantity) || 0, unit }
-    })
-
-const materialsToText = (materials) =>
-  materials.map((m) => `${m.name}:${m.quantity}:${m.unit}`).join(', ')
 
 const RecordCard = ({ record, sites, crews, getSiteName, onSaved, onDelete, t, locale }) => {
   const [editing, setEditing] = useState(false)
-  const [siteId, setSiteId] = useState(record.siteId)
-  const [crewId, setCrewId] = useState(record.crewId || '')
-  const [dateStr, setDateStr] = useState(new Date(record.date).toISOString().slice(0, 10))
-  const [workersPresent, setWorkersPresent] = useState(record.workersPresent)
-  const [hoursWorked, setHoursWorked] = useState(record.hoursWorked)
-  const [tasksText, setTasksText] = useState(record.tasksCompleted.join(', '))
-  const [materialsText, setMaterialsText] = useState(materialsToText(record.materialsUsed))
-  const [saving, setSaving] = useState(false)
-  const [error, setError] = useState('')
+  const crew = crews.find((c) => c.id === record.crewId)
 
-  const handleSave = async () => {
-    setSaving(true)
-    setError('')
-    try {
-      await updateRecord(record._id, {
-        siteId: Number(siteId),
-        crewId: crewId ? Number(crewId) : undefined,
-        date: new Date(dateStr).toISOString(),
-        workersPresent: Number(workersPresent),
-        hoursWorked: Number(hoursWorked),
-        tasksCompleted: tasksText.split(',').map((t) => t.trim()).filter(Boolean),
-        materialsUsed: parseMaterialsText(materialsText),
-      })
-      setEditing(false)
-      onSaved()
-    } catch (err) {
-      setError(err.response?.data?.message || err.message)
-    }
-    setSaving(false)
+  const handleSave = async (payload) => {
+    await updateRecord(record._id, payload)
+    setEditing(false)
+    onSaved()
   }
 
   if (editing) {
     return (
-      <div className="bg-white rounded-xl p-5 shadow-sm border border-blue-200 flex flex-col gap-3">
-        <div className="flex gap-2 flex-wrap">
-          <select
-            value={siteId}
-            onChange={(e) => setSiteId(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm flex-1 min-w-[140px]"
-          >
-            {sites.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-              </option>
-            ))}
-          </select>
-          <select
-            value={crewId}
-            onChange={(e) => setCrewId(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm flex-1 min-w-[140px]"
-          >
-            <option value="">{t('dashboard.selectCrew')}</option>
-            {crews.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex gap-2 flex-wrap">
-          <input
-            type="date"
-            value={dateStr}
-            onChange={(e) => setDateStr(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
-          />
-          <input
-            type="number"
-            value={workersPresent}
-            onChange={(e) => setWorkersPresent(e.target.value)}
-            placeholder={t('dashboard.workersPresent')}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm flex-1 min-w-[100px]"
-          />
-          <input
-            type="number"
-            value={hoursWorked}
-            onChange={(e) => setHoursWorked(e.target.value)}
-            placeholder={t('dashboard.hoursWorked')}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm flex-1 min-w-[100px]"
-          />
-        </div>
-        <input
-          type="text"
-          value={tasksText}
-          onChange={(e) => setTasksText(e.target.value)}
-          placeholder={t('dashboard.tasksCompleted')}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+      <div className="bg-white rounded-xl p-5 shadow-sm border border-blue-200">
+        <RecordForm
+          record={record}
+          sites={sites}
+          crews={crews}
+          submitLabel={t('common.save')}
+          submittingLabel={t('common.saving')}
+          onSubmit={handleSave}
+          onCancel={() => setEditing(false)}
         />
-        <input
-          type="text"
-          value={materialsText}
-          onChange={(e) => setMaterialsText(e.target.value)}
-          placeholder="cement:50:bags, sand:10:bags"
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
-        />
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        <div className="flex gap-2">
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="bg-blue-500 text-white px-4 py-1.5 rounded-lg hover:bg-blue-600 transition text-sm font-semibold disabled:opacity-60"
-          >
-            {saving ? t('common.saving') : t('common.save')}
-          </button>
-          <button
-            onClick={() => setEditing(false)}
-            className="bg-gray-200 text-gray-700 px-4 py-1.5 rounded-lg hover:bg-gray-300 transition text-sm font-semibold"
-          >
-            {t('common.cancel')}
-          </button>
-        </div>
       </div>
     )
   }
@@ -173,6 +70,11 @@ const RecordCard = ({ record, sites, crews, getSiteName, onSaved, onDelete, t, l
       </div>
 
       <div className="flex gap-2 flex-wrap mb-3">
+        {crew && (
+          <span className="bg-gray-100 text-gray-700 rounded-lg px-3 py-1 text-sm font-semibold">
+            {crew.name}
+          </span>
+        )}
         <span className="bg-blue-50 text-blue-700 rounded-lg px-3 py-1 text-sm font-semibold">
           {t('records.workersTag', { count: record.workersPresent })}
         </span>
@@ -186,7 +88,45 @@ const RecordCard = ({ record, sites, crews, getSiteName, onSaved, onDelete, t, l
           <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
             {t('records.tasks')}
           </p>
-          <p className="text-sm text-gray-700">{record.tasksCompleted.join(', ')}</p>
+          <p className="text-sm text-gray-700 whitespace-pre-line">
+            {record.tasksCompleted.join('\n')}
+          </p>
+        </div>
+      )}
+
+      {record.crewNote && (
+        <div className="mb-2">
+          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
+            {t('records.crewWork')}
+          </p>
+          <p className="text-sm text-gray-700 whitespace-pre-line">{record.crewNote}</p>
+        </div>
+      )}
+
+      {record.entries?.length > 0 && (
+        <div className="mb-2">
+          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
+            {t('records.workers')}
+          </p>
+          <ul className="text-sm text-gray-700 divide-y divide-gray-100">
+            {record.entries.map((entry, i) => (
+              <li key={i} className="py-1">
+                <div className="flex justify-between gap-3">
+                  <span className="font-medium">{entry.name}</span>
+                  <span className="shrink-0 text-gray-600">
+                    {entry.hours} {t('records.hoursUnit')}
+                    {entry.startTime && entry.endTime && (
+                      <span className="text-gray-400">
+                        {' '}
+                        ({entry.startTime}–{entry.endTime})
+                      </span>
+                    )}
+                  </span>
+                </div>
+                {entry.note && <p className="text-xs text-gray-500">{entry.note}</p>}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
