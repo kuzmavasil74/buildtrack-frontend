@@ -116,10 +116,10 @@
   },
   "records": {
     "title": "Wpisy robocze",
-    "total_one": "{{count}} wpis łącznie",
-    "total_few": "{{count}} wpisy łącznie",
-    "total_many": "{{count}} wpisów łącznie",
-    "total_other": "{{count}} wpisu łącznie",
+    "total_one": "{{count}} wpis",
+    "total_few": "{{count}} wpisy",
+    "total_many": "{{count}} wpisów",
+    "total_other": "{{count}} wpisu",
     "downloadReport": "Pobierz raport PDF",
     "from": "Od",
     "to": "Do",
@@ -148,7 +148,12 @@
     "materials": "Materiały",
     "updateSuccess": "Wpis został zaktualizowany!",
     "crewWork": "Prace brygady",
-    "workers": "Pracownicy"
+    "workers": "Pracownicy",
+    "prevMonth": "Poprzedni miesiąc",
+    "nextMonth": "Następny miesiąc",
+    "thisMonth": "Bieżący miesiąc",
+    "emptyMonth": "Brak wpisów w tym miesiącu",
+    "emptyMonthHint": "Użyj strzałek powyżej lub wybierz miesiąc poniżej, aby zobaczyć inne wpisy"
   },
   "payroll": {
     "title": "Wypłaty",

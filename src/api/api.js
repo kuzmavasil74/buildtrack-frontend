@@ -38,8 +38,12 @@ export const getMe = async () => {
 export const createRecord = async (data) => {
   return await api.post('/records', data)
 }
-export const getRecords = async (siteId) => {
-  return await api.get('/records', { params: siteId ? { siteId } : {} })
+export const getRecords = async ({ siteId, from, to } = {}) => {
+  const params = {}
+  if (siteId) params.siteId = siteId
+  if (from) params.from = from
+  if (to) params.to = to
+  return await api.get('/records', { params })
 }
 export const updateRecord = async (id, data) => {
   return await api.put(`/records/${id}`, data)

@@ -115,10 +115,10 @@
   },
   "records": {
     "title": "Pracovní záznamy",
-    "total_one": "{{count}} záznam celkem",
-    "total_few": "{{count}} záznamy celkem",
-    "total_many": "{{count}} záznamu celkem",
-    "total_other": "{{count}} záznamů celkem",
+    "total_one": "{{count}} záznam",
+    "total_few": "{{count}} záznamy",
+    "total_many": "{{count}} záznamu",
+    "total_other": "{{count}} záznamů",
     "downloadReport": "Stáhnout PDF report",
     "from": "Od",
     "to": "Do",
@@ -147,7 +147,12 @@
     "materials": "Materiály",
     "updateSuccess": "Záznam byl úspěšně aktualizován!",
     "crewWork": "Práce čety",
-    "workers": "Pracovníci"
+    "workers": "Pracovníci",
+    "prevMonth": "Předchozí měsíc",
+    "nextMonth": "Další měsíc",
+    "thisMonth": "Aktuální měsíc",
+    "emptyMonth": "Tento měsíc nemá žádné záznamy",
+    "emptyMonthHint": "Použijte šipky výše nebo vyberte měsíc níže a zobrazte jiné záznamy"
   },
   "payroll": {
     "title": "Mzdy",

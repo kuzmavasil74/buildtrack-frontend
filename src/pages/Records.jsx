@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   getRecords,
@@ -14,6 +14,17 @@ import {
 import Navbar from '../components/Navbar.jsx'
 import RecordForm from '../components/RecordForm.jsx'
 import { LOCALE_MAP } from '../i18n/config.js'
+
+const pad = (n) => String(n).padStart(2, '0')
+const dateStr = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`
+// [firstDay, lastDay] of the calendar month a Date falls in, as "YYYY-MM-DD".
+const monthRange = (date) => {
+  const y = date.getFullYear()
+  const m = date.getMonth()
+  const lastDay = new Date(y, m + 1, 0).getDate()
+  return { from: dateStr(y, m, 1), to: dateStr(y, m, lastDay) }
+}
+const sameMonth = (date, year, month) => date.getFullYear() === year && date.getMonth() === month - 1
 
 const RecordCard = ({
   record,
@@ -165,13 +176,20 @@ export default function Records() {
   const [workerDirectory, setWorkerDirectory] = useState([])
   const [monthlyStats, setMonthlyStats] = useState([])
   const [siteFilter, setSiteFilter] = useState('')
+  const [monthDate, setMonthDate] = useState(() => {
+    const d = new Date()
+    d.setDate(1)
+    return d
+  })
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
   const [downloading, setDownloading] = useState(false)
   const [downloadingCsv, setDownloadingCsv] = useState(false)
+  const autoJumped = useRef(false)
 
-  const refreshRecords = async (filterSiteId = siteFilter) => {
-    const res = await getRecords(filterSiteId || undefined)
+  const refreshRecords = async (filterSiteId = siteFilter, filterMonth = monthDate) => {
+    const { from: monthFrom, to: monthTo } = monthRange(filterMonth)
+    const res = await getRecords({ siteId: filterSiteId || undefined, from: monthFrom, to: monthTo })
     setRecords(res.data.records)
   }
 
@@ -181,18 +199,35 @@ export default function Records() {
   }
 
   useEffect(() => {
-    refreshRecords()
     getSites().then((res) => setSites(res.data.sites))
     getCrews().then((res) => setCrews(res.data.crews))
-    getMonthlyStats().then((res) => setMonthlyStats(res.data.stats))
     getWorkerDirectory().then((res) => setWorkerDirectory(res.data.workers))
+    getMonthlyStats().then((res) => {
+      setMonthlyStats(res.data.stats)
+      // First load, current month is empty, but other months have records:
+      // jump straight to the most recent one instead of showing an empty page.
+      if (!autoJumped.current) {
+        autoJumped.current = true
+        const stats = res.data.stats
+        const now = new Date()
+        const hasCurrentMonth = stats.some((s) => sameMonth(now, s.year, s.month))
+        if (!hasCurrentMonth && stats.length > 0) {
+          setMonthDate(new Date(stats[0].year, stats[0].month - 1, 1))
+        }
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    refreshRecords(siteFilter)
+    refreshRecords(siteFilter, monthDate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [siteFilter])
+  }, [siteFilter, monthDate])
+
+  const changeMonth = (delta) =>
+    setMonthDate((d) => new Date(d.getFullYear(), d.getMonth() + delta, 1))
+  const goToMonth = (year, month) => setMonthDate(new Date(year, month - 1, 1))
+  const isCurrentMonth = sameMonth(new Date(), monthDate.getFullYear(), monthDate.getMonth() + 1)
 
   const getSiteName = (siteId) => {
     const site = sites.find((s) => s.id === Number(siteId))
@@ -241,14 +276,7 @@ export default function Records() {
       <div className="p-4 sm:p-8">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                {t('records.title')}
-              </h1>
-              <p className="text-sm text-gray-500 mt-1">
-                {t('records.total', { count: records.length })}
-              </p>
-            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{t('records.title')}</h1>
             <select
               value={siteFilter}
               onChange={(e) => setSiteFilter(e.target.value)}
@@ -261,6 +289,41 @@ export default function Records() {
                 </option>
               ))}
             </select>
+          </div>
+
+          <div className="bg-white rounded-xl p-4 mb-6 shadow-sm border border-gray-200 flex items-center justify-between gap-3">
+            <button
+              onClick={() => changeMonth(-1)}
+              aria-label={t('records.prevMonth')}
+              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition text-lg font-bold"
+            >
+              ‹
+            </button>
+            <div className="text-center">
+              <p className="font-bold text-gray-900 capitalize">
+                {monthDate.toLocaleDateString(locale, { month: 'long', year: 'numeric' })}
+              </p>
+              <p className="text-xs text-gray-500">
+                {t('records.total', { count: records.length })}
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              {!isCurrentMonth && (
+                <button
+                  onClick={() => setMonthDate(new Date(new Date().setDate(1)))}
+                  className="hidden sm:inline text-xs text-blue-600 hover:text-blue-700 font-semibold px-2"
+                >
+                  {t('records.thisMonth')}
+                </button>
+              )}
+              <button
+                onClick={() => changeMonth(1)}
+                aria-label={t('records.nextMonth')}
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition text-lg font-bold"
+              >
+                ›
+              </button>
+            </div>
           </div>
 
           <div className="bg-white rounded-xl p-5 sm:p-6 mb-6 shadow-sm border border-gray-200">
@@ -313,29 +376,41 @@ export default function Records() {
             <div className="mb-6">
               <p className="text-sm font-semibold text-gray-700 mb-3">{t('records.hoursByMonth')}</p>
               <div className="flex gap-3 flex-wrap">
-                {monthlyStats.map((stat) => (
-                  <div
-                    key={`${stat.year}-${stat.month}`}
-                    className="bg-white rounded-lg border border-gray-200 shadow-sm px-4 py-3 min-w-[140px]"
-                  >
-                    <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
-                      {new Date(stat.year, stat.month - 1).toLocaleDateString(locale, {
-                        month: 'long',
-                        year: 'numeric',
-                      })}
-                    </p>
-                    <p className="text-2xl font-bold text-gray-900 mb-1">
-                      {stat.hours}{' '}
-                      <span className="text-sm font-normal text-gray-500">
-                        {t('records.hoursUnit')}
-                      </span>
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {stat.records} {t('records.recordsWord', { count: stat.records })} ·{' '}
-                      {stat.workers} {t('records.workerDaysWord')}
-                    </p>
-                  </div>
-                ))}
+                {monthlyStats.map((stat) => {
+                  const active = sameMonth(monthDate, stat.year, stat.month)
+                  return (
+                    <button
+                      key={`${stat.year}-${stat.month}`}
+                      onClick={() => goToMonth(stat.year, stat.month)}
+                      className={`text-left rounded-lg border shadow-sm px-4 py-3 min-w-[140px] transition ${
+                        active
+                          ? 'bg-blue-600 border-blue-600'
+                          : 'bg-white border-gray-200 hover:border-blue-300'
+                      }`}
+                    >
+                      <p
+                        className={`text-[11px] font-semibold uppercase tracking-wide mb-1 ${
+                          active ? 'text-blue-100' : 'text-gray-400'
+                        }`}
+                      >
+                        {new Date(stat.year, stat.month - 1).toLocaleDateString(locale, {
+                          month: 'long',
+                          year: 'numeric',
+                        })}
+                      </p>
+                      <p className={`text-2xl font-bold mb-1 ${active ? 'text-white' : 'text-gray-900'}`}>
+                        {stat.hours}{' '}
+                        <span className={`text-sm font-normal ${active ? 'text-blue-100' : 'text-gray-500'}`}>
+                          {t('records.hoursUnit')}
+                        </span>
+                      </p>
+                      <p className={`text-xs ${active ? 'text-blue-100' : 'text-gray-500'}`}>
+                        {stat.records} {t('records.recordsWord', { count: stat.records })} ·{' '}
+                        {stat.workers} {t('records.workerDaysWord')}
+                      </p>
+                    </button>
+                  )
+                })}
               </div>
             </div>
           )}
@@ -343,8 +418,12 @@ export default function Records() {
           {records.length === 0 ? (
             <div className="bg-white rounded-xl border border-dashed border-gray-300 px-6 py-12 text-center">
               <p className="text-3xl mb-2">📋</p>
-              <p className="text-gray-600">{t('records.empty')}</p>
-              <p className="text-gray-400 text-sm">{t('records.emptyHint')}</p>
+              <p className="text-gray-600">
+                {monthlyStats.length > 0 ? t('records.emptyMonth') : t('records.empty')}
+              </p>
+              <p className="text-gray-400 text-sm">
+                {monthlyStats.length > 0 ? t('records.emptyMonthHint') : t('records.emptyHint')}
+              </p>
             </div>
           ) : (
             <div className="flex flex-col gap-3">

@@ -116,10 +116,10 @@
   },
   "records": {
     "title": "Рабочие записи",
-    "total_one": "{{count}} запись всего",
-    "total_few": "{{count}} записи всего",
-    "total_many": "{{count}} записей всего",
-    "total_other": "{{count}} записи всего",
+    "total_one": "{{count}} запись",
+    "total_few": "{{count}} записи",
+    "total_many": "{{count}} записей",
+    "total_other": "{{count}} записи",
     "downloadReport": "Скачать PDF-отчёт",
     "from": "От",
     "to": "До",
@@ -148,7 +148,12 @@
     "materials": "Материалы",
     "updateSuccess": "Запись успешно обновлена!",
     "crewWork": "Работы бригады",
-    "workers": "Работники"
+    "workers": "Работники",
+    "prevMonth": "Предыдущий месяц",
+    "nextMonth": "Следующий месяц",
+    "thisMonth": "Текущий месяц",
+    "emptyMonth": "За этот месяц записей нет",
+    "emptyMonthHint": "Используйте стрелки выше или выберите месяц ниже, чтобы увидеть другие записи"
   },
   "payroll": {
     "title": "Зарплата",

@@ -114,8 +114,8 @@
   },
   "records": {
     "title": "Work Records",
-    "total_one": "{{count}} record total",
-    "total_other": "{{count}} records total",
+    "total_one": "{{count}} record",
+    "total_other": "{{count}} records",
     "downloadReport": "Download PDF Report",
     "from": "From",
     "to": "To",
@@ -140,7 +140,12 @@
     "materials": "Materials",
     "updateSuccess": "Record updated successfully!",
     "crewWork": "Crew work",
-    "workers": "Workers"
+    "workers": "Workers",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "thisMonth": "This month",
+    "emptyMonth": "No records this month",
+    "emptyMonthHint": "Use the arrows above, or pick a month below, to see other records"
   },
   "payroll": {
     "title": "Payroll",

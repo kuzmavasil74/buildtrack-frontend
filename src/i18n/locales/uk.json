@@ -116,10 +116,10 @@
   },
   "records": {
     "title": "Робочі записи",
-    "total_one": "{{count}} запис всього",
-    "total_few": "{{count}} записи всього",
-    "total_many": "{{count}} записів всього",
-    "total_other": "{{count}} запису всього",
+    "total_one": "{{count}} запис",
+    "total_few": "{{count}} записи",
+    "total_many": "{{count}} записів",
+    "total_other": "{{count}} запису",
     "downloadReport": "Завантажити PDF-звіт",
     "from": "Від",
     "to": "До",
@@ -148,7 +148,12 @@
     "materials": "Матеріали",
     "updateSuccess": "Запис успішно оновлено!",
     "crewWork": "Роботи бригади",
-    "workers": "Працівники"
+    "workers": "Працівники",
+    "prevMonth": "Попередній місяць",
+    "nextMonth": "Наступний місяць",
+    "thisMonth": "Поточний місяць",
+    "emptyMonth": "За цей місяць записів немає",
+    "emptyMonthHint": "Скористайтесь стрілками вище або оберіть місяць нижче, щоб побачити інші записи"
   },
   "payroll": {
     "title": "Зарплата",
