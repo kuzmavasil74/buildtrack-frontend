@@ -7,6 +7,8 @@ import Navbar from '../components/Navbar.jsx'
 const parseNames = (text) =>
   text.split(',').map((m) => m.trim()).filter(Boolean)
 
+const onlyDecimalChars = (value) => value.replace(/[^0-9.,]/g, '')
+
 const MemberRateFields = ({ members, rates, setRates, t }) => {
   const names = parseNames(members)
   if (names.length === 0) return null
@@ -19,11 +21,10 @@ const MemberRateFields = ({ members, rates, setRates, t }) => {
         <div key={name} className="flex items-center gap-2">
           <span className="text-sm text-gray-700 flex-1 truncate">{name}</span>
           <input
-            type="number"
-            min="0"
-            step="any"
+            type="text"
+            inputMode="decimal"
             value={rates[name] ?? ''}
-            onChange={(e) => setRates({ ...rates, [name]: e.target.value })}
+            onChange={(e) => setRates({ ...rates, [name]: onlyDecimalChars(e.target.value) })}
             placeholder="0"
             className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm w-28 bg-white focus:outline-none focus:border-blue-500"
           />

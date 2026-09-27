@@ -15,6 +15,10 @@ const hoursBetween = (start, end) => {
 
 const emptyEntry = () => ({ name: '', startTime: '', endTime: '', hours: '', rate: '', note: '' })
 
+// Accepts "11.5" or "11,5" (comma is the decimal separator in uk/pl/ru/cs locales).
+const toNum = (value) => Number(String(value).trim().replace(',', '.'))
+const onlyDecimalChars = (value) => value.replace(/[^0-9.,]/g, '')
+
 const inputClass =
   'border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white'
 
@@ -137,7 +141,7 @@ export default function RecordForm({
     if (!materialName) return
     setMaterials([
       ...materials,
-      { name: materialName, quantity: Number(materialQty), unit: materialUnit },
+      { name: materialName, quantity: toNum(materialQty), unit: materialUnit },
     ])
     setMaterialName('')
     setMaterialQty('')
@@ -145,14 +149,23 @@ export default function RecordForm({
   }
 
   const filled = entries.filter((e) => e.name.trim() || e.hours !== '')
-  const totalHours = filled.reduce((sum, e) => sum + (Number(e.hours) || 0), 0)
+  const totalHours = filled.reduce((sum, e) => sum + (toNum(e.hours) || 0), 0)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
 
     if (!siteId) return setError(t('dashboard.siteRequired'))
-    if (filled.some((entry) => !entry.name.trim() || entry.hours === '' || Number(entry.hours) < 0 || Number(entry.hours) > 24)) {
+    if (
+      filled.some(
+        (entry) =>
+          !entry.name.trim() ||
+          entry.hours === '' ||
+          !Number.isFinite(toNum(entry.hours)) ||
+          toNum(entry.hours) < 0 ||
+          toNum(entry.hours) > 24
+      )
+    ) {
       return setError(t('dashboard.entryInvalid'))
     }
     // Editing an old record that has no per-person lines: keep its totals.
@@ -170,8 +183,8 @@ export default function RecordForm({
         name: entry.name.trim(),
         startTime: entry.startTime || undefined,
         endTime: entry.endTime || undefined,
-        hours: Number(entry.hours),
-        rate: entry.rate === '' ? undefined : Number(entry.rate),
+        hours: toNum(entry.hours),
+        rate: entry.rate === '' ? undefined : toNum(entry.rate),
         note: entry.note.trim(),
       })),
     }
@@ -327,23 +340,20 @@ export default function RecordForm({
                 <label className="flex flex-col text-[11px] text-gray-400 gap-0.5">
                   {t('dashboard.hoursShort')}
                   <input
-                    type="number"
-                    min="0"
-                    max="24"
-                    step="0.25"
+                    type="text"
+                    inputMode="decimal"
                     value={entry.hours}
-                    onChange={(e) => updateEntry(i, { hours: e.target.value })}
+                    onChange={(e) => updateEntry(i, { hours: onlyDecimalChars(e.target.value) })}
                     className={inputClass}
                   />
                 </label>
                 <label className="flex flex-col text-[11px] text-gray-400 gap-0.5">
                   {t('dashboard.rate')}
                   <input
-                    type="number"
-                    min="0"
-                    step="0.01"
+                    type="text"
+                    inputMode="decimal"
                     value={entry.rate}
-                    onChange={(e) => updateEntry(i, { rate: e.target.value })}
+                    onChange={(e) => updateEntry(i, { rate: onlyDecimalChars(e.target.value) })}
                     className={inputClass}
                   />
                 </label>
@@ -400,9 +410,10 @@ export default function RecordForm({
           />
           <div className="flex gap-2">
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               value={materialQty}
-              onChange={(e) => setMaterialQty(e.target.value)}
+              onChange={(e) => setMaterialQty(onlyDecimalChars(e.target.value))}
               placeholder={t('dashboard.quantity')}
               className={`${inputClass} w-1/2`}
             />
