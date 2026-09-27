@@ -69,7 +69,12 @@ export default function RecordForm({
 }) {
   const { t } = useTranslation()
   const [siteId, setSiteId] = useState(record ? String(record.siteId) : '')
-  const [crewId, setCrewId] = useState(record?.crewId ? String(record.crewId) : '')
+  const [crewId, setCrewId] = useState(() => {
+    // A record can outlive its crew (deleted, or no longer this user's) --
+    // treat that as no crew rather than sending a stale id the server rejects.
+    const initial = record?.crewId ? String(record.crewId) : ''
+    return initial && crews.some((c) => String(c.id) === initial) ? initial : ''
+  })
   const [dateStr, setDateStr] = useState(
     (record ? new Date(record.date) : new Date()).toISOString().slice(0, 10)
   )
