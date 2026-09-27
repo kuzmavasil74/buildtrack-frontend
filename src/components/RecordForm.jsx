@@ -17,12 +17,13 @@ const hoursBetween = (start, end) => {
   return String(Math.round((minutes / 60) * 100) / 100)
 }
 
-const DEFAULT_HOURS = '11.5'
+const DEFAULT_START = '07:00'
+const DEFAULT_END = '19:00'
 const emptyEntry = () => ({
   name: '',
-  startTime: '',
-  endTime: '',
-  hours: DEFAULT_HOURS,
+  startTime: DEFAULT_START,
+  endTime: DEFAULT_END,
+  hours: hoursBetween(DEFAULT_START, DEFAULT_END),
   rate: '',
   note: '',
 })
