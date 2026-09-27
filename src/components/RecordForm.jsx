@@ -13,7 +13,15 @@ const hoursBetween = (start, end) => {
   return String(Math.round((minutes / 60) * 100) / 100)
 }
 
-const emptyEntry = () => ({ name: '', startTime: '', endTime: '', hours: '', rate: '', note: '' })
+const DEFAULT_HOURS = '11.5'
+const emptyEntry = () => ({
+  name: '',
+  startTime: '',
+  endTime: '',
+  hours: DEFAULT_HOURS,
+  rate: '',
+  note: '',
+})
 
 // Accepts "11.5" or "11,5" (comma is the decimal separator in uk/pl/ru/cs locales).
 const toNum = (value) => Number(String(value).trim().replace(',', '.'))
@@ -91,6 +99,7 @@ export default function RecordForm({
     ...emptyEntry(),
     name,
     rate: crew.member_rates?.[name] ?? '',
+    fromCrew: true,
   })
 
   const handleCrewChange = (value) => {
@@ -98,8 +107,8 @@ export default function RecordForm({
     const crew = crews.find((c) => String(c.id) === value)
     if (!crew) return
     setEntries((current) => {
-      // Drop untouched rows (e.g. from a previously chosen crew), keep filled-in ones.
-      const kept = current.filter((e) => e.hours || e.note || e.startTime || e.endTime)
+      // Drop the previous crew's roster (fromCrew rows), keep manually added workers.
+      const kept = current.filter((e) => !e.fromCrew)
       const present = new Set(kept.map((e) => e.name))
       const added = crew.members.filter((name) => !present.has(name)).map((name) => memberRow(crew, name))
       return [...kept, ...added]
@@ -153,7 +162,9 @@ export default function RecordForm({
     setMaterialUnit('')
   }
 
-  const filled = entries.filter((e) => e.name.trim() || e.hours !== '')
+  // Hours default to DEFAULT_HOURS on every new row, so it no longer signals
+  // that the row was touched — only a name means the worker is meant to be included.
+  const filled = entries.filter((e) => e.name.trim())
   const totalHours = filled.reduce((sum, e) => sum + (toNum(e.hours) || 0), 0)
 
   const handleSubmit = async (e) => {
