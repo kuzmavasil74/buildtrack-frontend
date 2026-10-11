@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://buildtrack-api-x1xl.onrender.com/:path*"
+      "destination": "https://buildtrack-api-production-d9b2.up.railway.app/:path*"
     },
     { "source": "/(.*)", "destination": "/" }
   ]
