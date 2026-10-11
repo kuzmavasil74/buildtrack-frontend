@@ -89,7 +89,8 @@
     "longitude": "Zeměpisná délka (volitelné)",
     "viewOnMap": "📍 Zobrazit na mapě",
     "confirmDelete": "Smazat tuto stavbu? Tuto akci nelze vrátit zpět.",
-    "empty": "Zatím žádné stavby — přidejte první výše"
+    "empty": "Zatím žádné stavby — přidejte první výše",
+    "inUse": "Tato stavba má ještě záznamů: {{records}}, účtenek: {{receipts}}. Nejprve je smažte nebo přesuňte."
   },
   "crews": {
     "title": "Čety",

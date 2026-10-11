@@ -11,6 +11,23 @@ const api = axios.create({
   withCredentials: true,
 })
 
+// Pages where a 401 is expected and handled by the page itself.
+const PUBLIC_PATHS = ['/login', '/register', '/forgot-password', '/reset-password']
+
+// If the session ends while someone is working, send them to the login form
+// instead of leaving pages that silently fail to load.
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const onPublicPage = PUBLIC_PATHS.some((p) => window.location.pathname.startsWith(p))
+    const isAuthCall = String(error.config?.url || '').startsWith('/auth/')
+    if (error.response?.status === 401 && !onPublicPage && !isAuthCall) {
+      window.location.assign('/login')
+    }
+    return Promise.reject(error)
+  }
+)
+
 export const login = async (email, password) => {
   return await api.post('/auth/login', { email, password })
 }

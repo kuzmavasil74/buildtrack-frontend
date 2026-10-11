@@ -149,8 +149,18 @@ export default function Sites() {
   }
   const handleDeleteSite = async (id) => {
     if (!window.confirm(t('sites.confirmDelete'))) return
-    await deleteSite(id)
-    await refresh()
+    setError('')
+    try {
+      await deleteSite(id)
+      await refresh()
+    } catch (err) {
+      const data = err.response?.data
+      setError(
+        data?.code === 'SITE_IN_USE'
+          ? t('sites.inUse', { records: data.records, receipts: data.receipts })
+          : data?.message || err.message
+      )
+    }
   }
   return (
     <div className="min-h-screen bg-gray-100">
@@ -204,9 +214,13 @@ export default function Sites() {
               >
                 {loading ? t('sites.adding') : t('sites.add')}
               </button>
-              {error && <p className="text-red-500 text-sm">{error}</p>}
             </form>
           </div>
+          {error && (
+            <p className="text-red-500 text-sm mb-4 bg-red-50 border border-red-200 rounded-lg px-4 py-2">
+              {error}
+            </p>
+          )}
           {sites.length === 0 ? (
             <div className="bg-white rounded-xl border border-dashed border-gray-300 p-10 text-center text-gray-400">
               {t('sites.empty')}

@@ -89,7 +89,8 @@
     "longitude": "Długość geogr. (opcjonalnie)",
     "viewOnMap": "📍 Pokaż na mapie",
     "confirmDelete": "Usunąć tę budowę? Tej czynności nie można cofnąć.",
-    "empty": "Brak budów — dodaj pierwszą powyżej"
+    "empty": "Brak budów — dodaj pierwszą powyżej",
+    "inUse": "Ta budowa ma jeszcze wpisów: {{records}}, paragonów: {{receipts}}. Najpierw je usuń lub przenieś."
   },
   "crews": {
     "title": "Brygady",

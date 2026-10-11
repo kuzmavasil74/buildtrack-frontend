@@ -89,7 +89,8 @@
     "longitude": "Longitude (optional)",
     "viewOnMap": "📍 View on map",
     "confirmDelete": "Delete this site? This cannot be undone.",
-    "empty": "No sites yet — add your first construction site above"
+    "empty": "No sites yet — add your first construction site above",
+    "inUse": "This site still has {{records}} record(s) and {{receipts}} receipt(s). Delete or move them first."
   },
   "crews": {
     "title": "Crews",
