@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getPayroll, downloadPayrollCsv } from '../api/api.js'
+import { getPayroll, downloadPayrollCsv, updateCurrency } from '../api/api.js'
 import Navbar from '../components/Navbar.jsx'
 import { monthRange, sameMonth } from '../utils/monthRange.js'
 import { LOCALE_MAP } from '../i18n/config.js'
+import { CURRENCIES, formatMoney } from '../utils/money.js'
 
 export default function Payroll() {
   const { t, i18n } = useTranslation()
@@ -16,6 +17,7 @@ export default function Payroll() {
   const [crews, setCrews] = useState([])
   const [unassignedHours, setUnassignedHours] = useState(0)
   const [grandTotal, setGrandTotal] = useState(0)
+  const [currency, setCurrency] = useState('UAH')
   const [loading, setLoading] = useState(false)
   const [downloading, setDownloading] = useState(false)
 
@@ -27,9 +29,22 @@ export default function Payroll() {
         setCrews(res.data.crews)
         setUnassignedHours(res.data.unassignedHours)
         setGrandTotal(res.data.grandTotal)
+        setCurrency(res.data.currency)
       })
       .finally(() => setLoading(false))
   }, [monthDate])
+
+  const handleCurrencyChange = async (value) => {
+    const previous = currency
+    setCurrency(value) // optimistic; roll back if saving fails
+    try {
+      await updateCurrency(value)
+    } catch {
+      setCurrency(previous)
+    }
+  }
+
+  const money = (amount) => formatMoney(amount, currency, locale)
 
   const changeMonth = (delta) =>
     setMonthDate((d) => new Date(d.getFullYear(), d.getMonth() + delta, 1))
@@ -93,8 +108,23 @@ export default function Payroll() {
             </div>
           </div>
 
+          <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+            <label className="flex items-center gap-2 text-xs text-gray-500">
+              {t('payroll.currency')}
+              <select
+                value={currency}
+                onChange={(e) => handleCurrencyChange(e.target.value)}
+                className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm text-gray-900 bg-white"
+              >
+                {CURRENCIES.map((code) => (
+                  <option key={code} value={code}>
+                    {code}
+                  </option>
+                ))}
+              </select>
+            </label>
           {!loading && crews.length > 0 && (
-            <div className="flex justify-end mb-4">
+            <div className="flex justify-end">
               <button
                 onClick={handleDownloadCsv}
                 disabled={downloading}
@@ -104,6 +134,7 @@ export default function Payroll() {
               </button>
             </div>
           )}
+          </div>
 
           {!loading && crews.length === 0 && unassignedHours === 0 ? (
             <div className="bg-white rounded-xl border border-dashed border-gray-300 px-6 py-12 text-center">
@@ -137,9 +168,9 @@ export default function Payroll() {
                         <tr key={member.name} className="border-t border-gray-100">
                           <td className="py-1.5 text-gray-700">{member.name}</td>
                           <td className="py-1.5 text-right text-gray-700">{member.hours}</td>
-                          <td className="py-1.5 text-right text-gray-700">{member.rate}</td>
+                          <td className="py-1.5 text-right text-gray-700">{money(member.rate)}</td>
                           <td className="py-1.5 text-right font-semibold text-gray-900">
-                            {member.wage}
+                            {money(member.wage)}
                           </td>
                         </tr>
                       ))}
@@ -147,7 +178,7 @@ export default function Payroll() {
                   </table>
                   <div className="flex justify-end mt-2 pt-2 border-t border-gray-200">
                     <p className="text-sm font-bold text-gray-900">
-                      {t('payroll.crewTotal')}: {crew.totalWage}
+                      {t('payroll.crewTotal')}: {money(crew.totalWage)}
                     </p>
                   </div>
                 </div>
@@ -162,7 +193,7 @@ export default function Payroll() {
               {crews.length > 0 && (
                 <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-200 flex justify-between items-center">
                   <p className="font-semibold text-gray-700">{t('payroll.grandTotal')}</p>
-                  <p className="text-xl font-bold text-gray-900">{grandTotal}</p>
+                  <p className="text-xl font-bold text-gray-900">{money(grandTotal)}</p>
                 </div>
               )}
             </div>

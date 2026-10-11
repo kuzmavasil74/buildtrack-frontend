@@ -161,7 +161,8 @@
     "crewTotal": "Crew total",
     "unassignedHint": "{{hours}} hrs logged without a crew — not included in payroll",
     "grandTotal": "Grand total",
-    "noCrew": "No crew"
+    "noCrew": "No crew",
+    "currency": "Currency"
   },
   "receipts": {
     "title": "Receipts",

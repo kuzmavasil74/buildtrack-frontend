@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createRecord, getSites, getCrews, getWorkerDirectory } from '../api/api.js'
 import { useTranslation } from 'react-i18next'
 import Navbar from '../components/Navbar.jsx'
@@ -11,6 +11,8 @@ const Dashboard = () => {
   const [workerDirectory, setWorkerDirectory] = useState([])
   // Bumping the key remounts the form, which clears it after a successful save.
   const [formKey, setFormKey] = useState(0)
+  const [saved, setSaved] = useState(false)
+  const savedTimer = useRef(null)
 
   const refreshWorkerDirectory = () =>
     getWorkerDirectory().then((res) => setWorkerDirectory(res.data.workers))
@@ -25,8 +27,12 @@ const Dashboard = () => {
     await createRecord(payload)
     setFormKey((k) => k + 1)
     refreshWorkerDirectory()
-    alert(t('dashboard.createSuccess'))
+    setSaved(true)
+    clearTimeout(savedTimer.current)
+    savedTimer.current = setTimeout(() => setSaved(false), 4000)
   }
+
+  useEffect(() => () => clearTimeout(savedTimer.current), [])
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -37,6 +43,14 @@ const Dashboard = () => {
             <h3 className="text-xl font-semibold text-gray-700 mb-6">
               {t('dashboard.dailyRecord')}
             </h3>
+            {saved && (
+              <p
+                role="status"
+                className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-2 text-sm font-semibold text-green-700"
+              >
+                ✓ {t('dashboard.createSuccess')}
+              </p>
+            )}
             <RecordForm
               key={formKey}
               sites={sites}

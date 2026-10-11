@@ -52,6 +52,10 @@ export const getMe = async () => {
   return await api.get('/auth/me')
 }
 
+export const updateCurrency = async (currency) => {
+  return await api.put('/auth/currency', { currency })
+}
+
 export const createRecord = async (data) => {
   return await api.post('/records', data)
 }

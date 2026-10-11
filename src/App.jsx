@@ -1,86 +1,57 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import Home from './pages/Home.jsx'
-import Dashboard from './pages/Dashboard.jsx'
-import Login from './pages/Login.jsx'
-import Register from './pages/Register.jsx'
-import ForgotPassword from './pages/ForgotPassword.jsx'
-import ResetPassword from './pages/ResetPassword.jsx'
-import Main from './pages/Main.jsx'
-import Records from './pages/Records.jsx'
-import Sites from './pages/Sites.jsx'
-import Crews from './pages/Crews.jsx'
-import Payroll from './pages/Payroll.jsx'
-import Receipts from './pages/Receipts.jsx'
+import { useTranslation } from 'react-i18next'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import './App.css'
+
+// Every page is its own chunk, so the first screen only downloads what it needs.
+const Main = lazy(() => import('./pages/Main.jsx'))
+const Login = lazy(() => import('./pages/Login.jsx'))
+const Register = lazy(() => import('./pages/Register.jsx'))
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword.jsx'))
+const ResetPassword = lazy(() => import('./pages/ResetPassword.jsx'))
+const Home = lazy(() => import('./pages/Home.jsx'))
+const Dashboard = lazy(() => import('./pages/Dashboard.jsx'))
+const Records = lazy(() => import('./pages/Records.jsx'))
+const Crews = lazy(() => import('./pages/Crews.jsx'))
+const Sites = lazy(() => import('./pages/Sites.jsx'))
+const Payroll = lazy(() => import('./pages/Payroll.jsx'))
+const Receipts = lazy(() => import('./pages/Receipts.jsx'))
+
+const protectedPage = (Page) => (
+  <ProtectedRoute>
+    <Page />
+  </ProtectedRoute>
+)
+
+const PageLoading = () => {
+  const { t } = useTranslation()
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <p className="text-gray-500 text-sm">{t('common.loading')}</p>
+    </div>
+  )
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/records"
-          element={
-            <ProtectedRoute>
-              <Records />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/crews"
-          element={
-            <ProtectedRoute>
-              <Crews />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/sites"
-          element={
-            <ProtectedRoute>
-              <Sites />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/payroll"
-          element={
-            <ProtectedRoute>
-              <Payroll />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/receipts"
-          element={
-            <ProtectedRoute>
-              <Receipts />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+      <Suspense fallback={<PageLoading />}>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/home" element={protectedPage(Home)} />
+          <Route path="/dashboard" element={protectedPage(Dashboard)} />
+          <Route path="/records" element={protectedPage(Records)} />
+          <Route path="/crews" element={protectedPage(Crews)} />
+          <Route path="/sites" element={protectedPage(Sites)} />
+          <Route path="/payroll" element={protectedPage(Payroll)} />
+          <Route path="/receipts" element={protectedPage(Receipts)} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   )
 }

@@ -169,7 +169,8 @@
     "crewTotal": "Razem dla brygady",
     "unassignedHint": "{{hours}} godz. zapisanych bez brygady — nieuwzględnione w wypłatach",
     "grandTotal": "Suma całkowita",
-    "noCrew": "Bez brygady"
+    "noCrew": "Bez brygady",
+    "currency": "Waluta"
   },
   "receipts": {
     "title": "Paragony",

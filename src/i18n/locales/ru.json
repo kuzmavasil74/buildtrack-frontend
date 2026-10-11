@@ -169,7 +169,8 @@
     "crewTotal": "Итого по бригаде",
     "unassignedHint": "{{hours}} ч записано без бригады — не учтено в расчёте",
     "grandTotal": "Общая сумма",
-    "noCrew": "Без бригады"
+    "noCrew": "Без бригады",
+    "currency": "Валюта"
   },
   "receipts": {
     "title": "Чеки",

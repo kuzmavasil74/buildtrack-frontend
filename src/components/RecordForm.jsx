@@ -1,24 +1,14 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import QrScanner from './QrScanner.jsx'
+import {
+  DEFAULT_END,
+  DEFAULT_START,
+  hoursBetween,
+  onlyDecimalChars,
+  toNum,
+} from '../utils/hours.js'
 
-const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/
-const LUNCH_BREAK_MINUTES = 30
-
-// Hours between two clock times, minus an automatic 30-minute lunch break
-// (never below 0).
-const hoursBetween = (start, end) => {
-  if (!TIME_RE.test(start) || !TIME_RE.test(end)) return ''
-  const [sh, sm] = start.split(':').map(Number)
-  const [eh, em] = end.split(':').map(Number)
-  let minutes = eh * 60 + em - (sh * 60 + sm)
-  if (minutes < 0) minutes += 24 * 60
-  minutes = Math.max(minutes - LUNCH_BREAK_MINUTES, 0)
-  return String(Math.round((minutes / 60) * 100) / 100)
-}
-
-const DEFAULT_START = '07:00'
-const DEFAULT_END = '19:00'
 const emptyEntry = () => ({
   name: '',
   startTime: DEFAULT_START,
@@ -28,9 +18,6 @@ const emptyEntry = () => ({
   note: '',
 })
 
-// Accepts "11.5" or "11,5" (comma is the decimal separator in uk/pl/ru/cs locales).
-const toNum = (value) => Number(String(value).trim().replace(',', '.'))
-const onlyDecimalChars = (value) => value.replace(/[^0-9.,]/g, '')
 
 const inputClass =
   'border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white'

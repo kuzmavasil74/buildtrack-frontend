@@ -168,7 +168,8 @@
     "crewTotal": "Celkem za četu",
     "unassignedHint": "{{hours}} hod zaznamenáno bez čety — nezahrnuto do mezd",
     "grandTotal": "Celková částka",
-    "noCrew": "Bez čety"
+    "noCrew": "Bez čety",
+    "currency": "Měna"
   },
   "receipts": {
     "title": "Účtenky",
