@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { getSites, uploadReceipt, getReceipts } from '../api/api.js'
 import Navbar from '../components/Navbar.jsx'
 import { LOCALE_MAP } from '../i18n/config.js'
+import { compressImage } from '../utils/compressImage.js'
 
 const RECEIPT_REFRESH_MS = 50 * 60 * 1000
 
@@ -54,7 +55,7 @@ export default function Receipts() {
     setSuccess(false)
     try {
       const formData = new FormData()
-      formData.append('receipt', file)
+      formData.append('receipt', await compressImage(file))
       formData.append('siteId', siteId)
 
       await uploadReceipt(formData)
