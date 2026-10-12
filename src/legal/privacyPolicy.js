@@ -1,10 +1,12 @@
-// The controller's details. Fill these in before the policy is shared
-// publicly; a value still in [BRACKETS] is shown highlighted on the page.
+// The controller's details (from sanjo.cz). A value written in [BRACKETS] is
+// treated as a placeholder and shown highlighted on the page.
 export const CONTROLLER = {
-  name: '[SANJO – FULL LEGAL NAME]',
-  nif: '[NIF]',
-  address: '[REGISTERED ADDRESS]',
-  email: '[CONTACT EMAIL]',
+  name: 'SANJO group s.r.o.',
+  ico: '17369045',
+  dic: 'CZ17369045',
+  address: 'Václavské náměstí 808/66, 110 00 Praha 1 – Nové Město, Česká republika',
+  register: 'C 370730, Městský soud v Praze',
+  email: 'kuzmavasil.v@gmail.com',
 }
 
 export const LAST_UPDATED = '2026-10-12'
@@ -83,7 +85,7 @@ const uk = {
         'Видалити акаунт і дані.',
         'Обмежити обробку або заперечити проти неї.',
         'Отримати дані у машиночитному форматі (перенесення).',
-        'Подати скаргу до наглядового органу з захисту даних. У Португалії це CNPD (www.cnpd.pt).',
+        'Подати скаргу до наглядового органу з захисту даних. У Чехії це Úřad pro ochranu osobních údajů (www.uoou.gov.cz).',
       ],
       after: ['Щоб скористатися правами, напишіть на email, вказаний у розділі 1. Ми відповімо протягом 30 днів.'],
     },
@@ -98,7 +100,7 @@ const uk = {
       ],
     },
   ],
-  controllerLabels: { name: 'Назва', nif: 'NIF', address: 'Адреса', email: 'Email' },
+  controllerLabels: { name: 'Назва', ico: 'IČO', dic: 'DIČ', address: 'Адреса', register: 'Реєстр', email: 'Email' },
 }
 
 const en = {
@@ -171,7 +173,7 @@ const en = {
         'Delete your account and data.',
         'Restrict or object to processing.',
         'Receive your data in a machine-readable format (portability).',
-        'Complain to a data protection authority. In Portugal this is the CNPD (www.cnpd.pt).',
+        'Complain to a data protection authority. In the Czech Republic this is the Úřad pro ochranu osobních údajů (www.uoou.gov.cz).',
       ],
       after: ['To use these rights, write to the email in section 1. We reply within 30 days.'],
     },
@@ -186,7 +188,7 @@ const en = {
       ],
     },
   ],
-  controllerLabels: { name: 'Name', nif: 'NIF', address: 'Address', email: 'Email' },
+  controllerLabels: { name: 'Name', ico: 'Company ID (IČO)', dic: 'VAT ID (DIČ)', address: 'Address', register: 'Commercial register', email: 'Email' },
 }
 
 // Ukrainian for Ukrainian and Russian speakers, English for everyone else.
