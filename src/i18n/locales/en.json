@@ -171,7 +171,13 @@
     "uploading": "Uploading...",
     "uploadSuccess": "Receipt uploaded successfully!",
     "uploaded": "Uploaded Receipts",
-    "empty": "No receipts yet"
+    "empty": "No receipts yet",
+    "allSites": "All sites",
+    "unknownSite": "Unknown site",
+    "noPreview": "No preview",
+    "close": "Close",
+    "openOriginal": "Open in new tab",
+    "emptyFiltered": "No receipts for this site"
   },
   "common": {
     "loading": "Loading...",

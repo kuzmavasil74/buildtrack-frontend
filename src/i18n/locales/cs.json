@@ -178,7 +178,13 @@
     "uploading": "Nahrávání...",
     "uploadSuccess": "Účtenka byla úspěšně nahrána!",
     "uploaded": "Nahrané účtenky",
-    "empty": "Zatím žádné účtenky"
+    "empty": "Zatím žádné účtenky",
+    "allSites": "Všechny stavby",
+    "unknownSite": "Neznámá stavba",
+    "noPreview": "Bez náhledu",
+    "close": "Zavřít",
+    "openOriginal": "Otevřít v nové kartě",
+    "emptyFiltered": "Pro tuto stavbu nejsou žádné účtenky"
   },
   "common": {
     "loading": "Načítání...",

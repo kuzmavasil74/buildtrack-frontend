@@ -179,7 +179,13 @@
     "uploading": "Przesyłanie...",
     "uploadSuccess": "Paragon został przesłany!",
     "uploaded": "Przesłane paragony",
-    "empty": "Brak paragonów"
+    "empty": "Brak paragonów",
+    "allSites": "Wszystkie budowy",
+    "unknownSite": "Nieznana budowa",
+    "noPreview": "Brak podglądu",
+    "close": "Zamknij",
+    "openOriginal": "Otwórz w nowej karcie",
+    "emptyFiltered": "Brak paragonów dla tej budowy"
   },
   "common": {
     "loading": "Ładowanie...",
