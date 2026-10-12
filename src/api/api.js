@@ -170,3 +170,9 @@ export const acceptInvite = async (token) => {
 export const getAdminStats = async () => {
   return await api.get('/admin/stats')
 }
+export const exportMyData = async () => {
+  return await api.get('/account/export', { responseType: 'blob' })
+}
+export const deleteMyAccount = async (email) => {
+  return await api.delete('/account', { data: { email } })
+}

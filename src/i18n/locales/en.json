@@ -15,7 +15,8 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "team": "Team",
-    "admin": "Admin"
+    "admin": "Admin",
+    "account": "Account"
   },
   "auth": {
     "login": "Login",
@@ -252,5 +253,29 @@
     "sites": "Sites",
     "never": "never",
     "unknown": "before tracking"
+  },
+  "account": {
+    "title": "Account",
+    "email": "Email",
+    "role": "Role",
+    "company": "Company",
+    "exportTitle": "Your data",
+    "exportOwner": "Download everything stored about you and your company (account, sites, crews, records and receipt details) as one JSON file.",
+    "exportForeman": "Download your account details and the records and receipts you entered as one JSON file.",
+    "exportButton": "Download my data",
+    "exporting": "Preparing…",
+    "deleteTitle": "Delete account",
+    "deleteForeman": "Your account is deleted for good. The records and receipts you entered stay with {{company}}, no longer linked to you.",
+    "deleteOwner": "Your account and the whole company {{company}} are deleted for good: sites, crews, records, receipts and their photos. Download your data first if you want to keep a copy.",
+    "ownerHasMembers": "Your company still has other members. Remove them on the Team page before deleting your account.",
+    "openTeam": "Open Team",
+    "confirmLabel": "Type your email ({{email}}) to confirm",
+    "deleteButton": "Delete my account",
+    "deleting": "Deleting…",
+    "emailMismatch": "The email does not match your account.",
+    "deletedTitle": "Your account has been deleted",
+    "deletedText": "Thank you for using Sanjo.",
+    "home": "Go to the home page",
+    "error": "Something went wrong. Please try again."
   }
 }

@@ -28,6 +28,7 @@ const Navbar = () => {
     { to: '/receipts', label: t('nav.receipts') },
     owner && { to: '/team', label: t('nav.team') },
     me?.isAdmin && { to: '/admin', label: t('nav.admin') },
+    { to: '/account', label: t('nav.account') },
   ].filter(Boolean)
 
   const handleLogout = async () => {

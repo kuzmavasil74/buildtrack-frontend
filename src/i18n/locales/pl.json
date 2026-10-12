@@ -15,7 +15,8 @@
     "openMenu": "Otwórz menu",
     "closeMenu": "Zamknij menu",
     "team": "Zespół",
-    "admin": "Admin"
+    "admin": "Admin",
+    "account": "Konto"
   },
   "auth": {
     "login": "Zaloguj się",
@@ -260,5 +261,29 @@
     "sites": "Budowy",
     "never": "nigdy",
     "unknown": "sprzed śledzenia"
+  },
+  "account": {
+    "title": "Konto",
+    "email": "Email",
+    "role": "Rola",
+    "company": "Firma",
+    "exportTitle": "Twoje dane",
+    "exportOwner": "Pobierz wszystko, co przechowujemy o Tobie i Twojej firmie (konto, budowy, brygady, wpisy i dane paragonów), jako jeden plik JSON.",
+    "exportForeman": "Pobierz dane swojego konta oraz wpisy i paragony, które dodałeś, jako jeden plik JSON.",
+    "exportButton": "Pobierz moje dane",
+    "exporting": "Przygotowujemy…",
+    "deleteTitle": "Usuń konto",
+    "deleteForeman": "Twoje konto zostanie usunięte na zawsze. Wpisy i paragony, które dodałeś, zostaną w firmie {{company}}, już bez powiązania z Tobą.",
+    "deleteOwner": "Twoje konto i cała firma {{company}} zostaną usunięte na zawsze: budowy, brygady, wpisy, paragony i ich zdjęcia. Jeśli chcesz zachować kopię, najpierw pobierz dane.",
+    "ownerHasMembers": "W Twojej firmie są jeszcze inni członkowie. Usuń ich na stronie „Zespół”, zanim usuniesz konto.",
+    "openTeam": "Otwórz „Zespół”",
+    "confirmLabel": "Wpisz swój email ({{email}}), aby potwierdzić",
+    "deleteButton": "Usuń moje konto",
+    "deleting": "Usuwamy…",
+    "emailMismatch": "Email nie zgadza się z Twoim kontem.",
+    "deletedTitle": "Twoje konto zostało usunięte",
+    "deletedText": "Dziękujemy za korzystanie z Sanjo.",
+    "home": "Na stronę główną",
+    "error": "Coś poszło nie tak. Spróbuj ponownie."
   }
 }

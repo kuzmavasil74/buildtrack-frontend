@@ -15,7 +15,8 @@
     "openMenu": "Otevřít menu",
     "closeMenu": "Zavřít menu",
     "team": "Tým",
-    "admin": "Admin"
+    "admin": "Admin",
+    "account": "Účet"
   },
   "auth": {
     "login": "Přihlásit se",
@@ -216,7 +217,7 @@
     "remove": "Odebrat",
     "confirmRemove": "Odebrat {{email}} z firmy? Záznamy a účtenky, které přidal(a), zůstanou ve firmě.",
     "inviteTitle": "Pozvat mistra",
-    "inviteHint": "Mistr vidí stavby, party, záznamy a účtenky firmy, přidává záznamy a účtenky a upravuje své záznamy. Nemůže měnit stavby ani party, vidět mzdy ani spravovat tým.",
+    "inviteHint": "Mistr vidí stavby, čety, záznamy a účtenky firmy, přidává záznamy a účtenky a upravuje své záznamy. Nemůže měnit stavby ani party, vidět mzdy ani spravovat tým.",
     "emailPlaceholder": "Email mistra",
     "send": "Odeslat pozvánku",
     "sending": "Odesílání...",
@@ -259,5 +260,29 @@
     "sites": "Stavby",
     "never": "nikdy",
     "unknown": "před sledováním"
+  },
+  "account": {
+    "title": "Účet",
+    "email": "E-mail",
+    "role": "Role",
+    "company": "Firma",
+    "exportTitle": "Vaše data",
+    "exportOwner": "Stáhněte si vše, co o vás a vaší firmě uchováváme (účet, stavby, čety, záznamy a údaje o účtenkách), jako jeden soubor JSON.",
+    "exportForeman": "Stáhněte si údaje svého účtu a záznamy a účtenky, které jste zadali, jako jeden soubor JSON.",
+    "exportButton": "Stáhnout moje data",
+    "exporting": "Připravujeme…",
+    "deleteTitle": "Smazat účet",
+    "deleteForeman": "Váš účet bude nenávratně smazán. Záznamy a účtenky, které jste zadali, zůstanou ve firmě {{company}}, už bez vazby na vás.",
+    "deleteOwner": "Váš účet a celá firma {{company}} budou nenávratně smazány: stavby, čety, záznamy, účtenky a jejich fotky. Pokud si chcete ponechat kopii, nejdřív si stáhněte data.",
+    "ownerHasMembers": "Ve vaší firmě jsou ještě další členové. Než smažete účet, odeberte je na stránce Tým.",
+    "openTeam": "Otevřít Tým",
+    "confirmLabel": "Pro potvrzení napište svůj e-mail ({{email}})",
+    "deleteButton": "Smazat můj účet",
+    "deleting": "Mažeme…",
+    "emailMismatch": "E-mail neodpovídá vašemu účtu.",
+    "deletedTitle": "Váš účet byl smazán",
+    "deletedText": "Děkujeme, že jste používali Sanjo.",
+    "home": "Na úvodní stránku",
+    "error": "Něco se pokazilo. Zkuste to prosím znovu."
   }
 }

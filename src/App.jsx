@@ -21,6 +21,7 @@ const Team = lazy(() => import('./pages/Team.jsx'))
 const Admin = lazy(() => import('./pages/Admin.jsx'))
 const Invite = lazy(() => import('./pages/Invite.jsx'))
 const Privacy = lazy(() => import('./pages/Privacy.jsx'))
+const Account = lazy(() => import('./pages/Account.jsx'))
 
 const protectedPage = (Page, access = {}) => (
   <ProtectedRoute {...access}>
@@ -58,6 +59,7 @@ function App() {
           <Route path="/payroll" element={protectedPage(Payroll, OWNER)} />
           <Route path="/receipts" element={protectedPage(Receipts)} />
           <Route path="/team" element={protectedPage(Team, OWNER)} />
+          <Route path="/account" element={protectedPage(Account)} />
           <Route path="/admin" element={protectedPage(Admin, { adminOnly: true })} />
         </Routes>
       </Suspense>

@@ -64,7 +64,7 @@ const uk = {
       heading: '6. Скільки зберігаємо',
       items: [
         'Дані акаунта й робочі дані зберігаються, поки існує акаунт або фірма.',
-        'Після запиту на видалення ми видаляємо дані протягом 30 днів. Резервні копії зберігаються до 30 днів, після чого автоматично видаляються.',
+        'Коли ви видаляєте акаунт у застосунку, дані видаляються одразу. Резервні копії зберігаються до 30 днів, після чого автоматично видаляються.',
         'Запрошення діють 14 днів, посилання для відновлення пароля — 1 годину.',
       ],
     },
@@ -77,14 +77,14 @@ const uk = {
     {
       heading: '8. Ваші права',
       items: [
-        'Отримати копію своїх даних. Записи також можна експортувати в CSV прямо в застосунку.',
+        'Отримати копію своїх даних: кнопка «Завантажити мої дані» на сторінці «Акаунт» (у меню) дає файл JSON. Власник отримує дані всієї фірми, бригадир — свій акаунт і записи та чеки, які він вніс. Записи також можна експортувати в CSV.',
         'Виправити неточні дані.',
-        'Видалити акаунт і дані.',
+        'Видалити акаунт: кнопка «Видалити акаунт» на сторінці «Акаунт». Для бригадира видаляється акаунт, а внесені ним записи й чеки лишаються у фірмі без зв\'язку з ним. Власник спершу прибирає інших учасників, після чого видаляється вся фірма: об\'єкти, бригади, записи, чеки та їхні фото.',
         'Обмежити обробку або заперечити проти неї.',
-        'Отримати дані у машиночитному форматі (перенесення).',
+        'Отримати дані у машиночитному форматі (перенесення) — той самий файл JSON.',
         'Подати скаргу до наглядового органу з захисту даних. У Чехії це Úřad pro ochranu osobních údajů (www.uoou.gov.cz).',
       ],
-      after: ['Щоб скористатися правами, напишіть на email, вказаний у розділі 1. Ми відповімо протягом 30 днів.'],
+      after: ['Щодо інших прав або якщо щось не працює, напишіть на email, вказаний у розділі 1. Ми відповімо протягом 30 днів.'],
     },
     {
       heading: '9. Вік',
@@ -152,7 +152,7 @@ const en = {
       heading: '6. How long we keep it',
       items: [
         'Account and work data are kept while the account or company exists.',
-        'After a deletion request we delete the data within 30 days. Backups are kept for up to 30 days and then deleted automatically.',
+        'When you delete your account in the app, the data is deleted right away. Backups are kept for up to 30 days and then deleted automatically.',
         'Invitations are valid for 14 days and password reset links for 1 hour.',
       ],
     },
@@ -165,14 +165,14 @@ const en = {
     {
       heading: '8. Your rights',
       items: [
-        'Get a copy of your data. Records can also be exported to CSV in the app.',
+        'Get a copy of your data: the "Download my data" button on the Account page (in the menu) gives you a JSON file. An owner gets the whole company\'s data, a foreman their account and the records and receipts they entered. Records can also be exported to CSV.',
         'Correct inaccurate data.',
-        'Delete your account and data.',
+        'Delete your account: the "Delete account" button on the Account page. For a foreman the account is deleted, and the records and receipts they entered stay with the company, no longer linked to them. An owner first removes the other members; then the whole company is deleted: sites, crews, records, receipts and their photos.',
         'Restrict or object to processing.',
-        'Receive your data in a machine-readable format (portability).',
+        'Receive your data in a machine-readable format (portability): the same JSON file.',
         'Complain to a data protection authority. In the Czech Republic this is the Úřad pro ochranu osobních údajů (www.uoou.gov.cz).',
       ],
-      after: ['To use these rights, write to the email in section 1. We reply within 30 days.'],
+      after: ['For your other rights, or if something does not work, write to the email in section 1. We reply within 30 days.'],
     },
     {
       heading: '9. Age',
