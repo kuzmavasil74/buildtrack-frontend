@@ -64,12 +64,6 @@ const Login = () => {
             {t('auth.forgotPassword')}
           </a>
         </p>
-        <p className="text-center text-sm text-gray-500 mt-2">
-          {t('auth.noAccount')}{' '}
-          <a href="/register" className="text-blue-500 hover:underline">
-            {t('auth.register')}
-          </a>
-        </p>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         <p className="text-center text-xs text-gray-400 mt-6">
           <Link to="/privacy" className="hover:underline">

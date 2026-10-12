@@ -43,7 +43,8 @@
     "agreePrefix": "Přečetl(a) jsem si a souhlasím se",
     "privacyLink": "Zásadami ochrany osobních údajů",
     "mustAgree": "Pro pokračování přijměte Zásady ochrany osobních údajů",
-    "joiningCompany": "Připojujete se k {{company}}"
+    "joiningCompany": "Připojujete se k {{company}}",
+    "inviteOnly": "Účty se zakládají pouze na pozvánku. Požádejte vlastníka firmy o odkaz s pozvánkou."
   },
   "dashboard": {
     "dailyRecord": "Denní záznam",

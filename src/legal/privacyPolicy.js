@@ -1,11 +1,8 @@
-// The controller's details (from sanjo.cz). A value written in [BRACKETS] is
-// treated as a placeholder and shown highlighted on the page.
+// The app is run privately by one person, who is therefore the controller.
+// A value written in [BRACKETS] is a placeholder, shown highlighted on the page.
 export const CONTROLLER = {
-  name: 'SANJO group s.r.o.',
-  ico: '17369045',
-  dic: 'CZ17369045',
-  address: 'Václavské náměstí 808/66, 110 00 Praha 1 – Nové Město, Česká republika',
-  register: 'C 370730, Městský soud v Praze',
+  name: '[FULL NAME]',
+  country: 'Česká republika',
   email: 'kuzmavasil.v@gmail.com',
 }
 
@@ -23,7 +20,7 @@ const uk = {
   sections: [
     {
       heading: '1. Хто відповідає за ваші дані',
-      paragraphs: ['Контролер персональних даних:'],
+      paragraphs: ['Застосунок веде приватна особа, яка є контролером персональних даних:'],
       controller: true,
       after: [
         'Дані, які фірма вносить про своїх працівників (імена, години, ставки), фірма обробляє для власних цілей. Щодо цих даних фірма-користувач є контролером, а Sanjo обробляє їх від її імені й лише для надання сервісу. Фірма відповідає за те, щоб мати законну підставу вносити такі дані та повідомити про це своїх працівників.',
@@ -57,7 +54,7 @@ const uk = {
       heading: '5. Хто бачить дані',
       items: [
         'Учасники вашої фірми, відповідно до ролі. Власник бачить усе. Бригадир бачить об\'єкти, бригади, записи й чеки, але не бачить сторінку зарплати. Інші фірми ваших даних не бачать.',
-        'Адміністратор Sanjo для підтримки бачить лише email, фірму, дати й кількість записів, а не їхній вміст.',
+        'Адміністратор застосунку для підтримки бачить лише email, фірму, дати й кількість записів, а не їхній вміст.',
         'Постачальники, які зберігають і обробляють дані від нашого імені: Vercel (вебзастосунок), Railway (сервер і база PostgreSQL), MongoDB Atlas (база записів), Amazon Web Services S3, регіон Стокгольм, ЄС (фото чеків і резервні копії), а також поштовий сервіс для службових листів.',
         'Частина постачальників може обробляти дані за межами ЄС, зокрема у США. У таких випадках передача захищена стандартними договірними положеннями Європейської комісії або рамкою EU-US Data Privacy Framework.',
         'Ми не продаємо дані і не передаємо їх для реклами.',
@@ -100,7 +97,7 @@ const uk = {
       ],
     },
   ],
-  controllerLabels: { name: 'Назва', ico: 'IČO', dic: 'DIČ', address: 'Адреса', register: 'Реєстр', email: 'Email' },
+  controllerLabels: { name: 'Ім\'я', country: 'Країна', email: 'Email' },
 }
 
 const en = {
@@ -111,7 +108,7 @@ const en = {
   sections: [
     {
       heading: '1. Who is responsible for your data',
-      paragraphs: ['The data controller is:'],
+      paragraphs: ['The app is run by a private individual, who is the data controller:'],
       controller: true,
       after: [
         'The data a company enters about its workers (names, hours, rates) is processed for that company\'s own purposes. For that data the company using Sanjo is the controller, and Sanjo processes it on the company\'s behalf only to provide the service. The company is responsible for having a legal basis to enter it and for informing its workers.',
@@ -145,7 +142,7 @@ const en = {
       heading: '5. Who can see the data',
       items: [
         'Members of your company, according to their role. The owner sees everything. A foreman sees sites, crews, records and receipts but not the payroll page. Other companies cannot see your data.',
-        'The Sanjo administrator, for support, sees only emails, company names, dates and the number of records, not their content.',
+        'The app administrator, for support, sees only emails, company names, dates and the number of records, not their content.',
         'Providers that store and process data on our behalf: Vercel (web app), Railway (server and PostgreSQL database), MongoDB Atlas (records database), Amazon Web Services S3 in Stockholm, EU (receipt photos and backups), and an email service for service emails.',
         'Some providers may process data outside the EU, including in the USA. Such transfers are protected by the European Commission\'s Standard Contractual Clauses or the EU-US Data Privacy Framework.',
         'We do not sell data or share it for advertising.',
@@ -188,7 +185,7 @@ const en = {
       ],
     },
   ],
-  controllerLabels: { name: 'Name', ico: 'Company ID (IČO)', dic: 'VAT ID (DIČ)', address: 'Address', register: 'Commercial register', email: 'Email' },
+  controllerLabels: { name: 'Name', country: 'Country', email: 'Email' },
 }
 
 // Ukrainian for Ukrainian and Russian speakers, English for everyone else.

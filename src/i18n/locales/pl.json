@@ -43,7 +43,8 @@
     "agreePrefix": "Przeczytałem(-am) i akceptuję",
     "privacyLink": "Politykę prywatności",
     "mustAgree": "Aby kontynuować, zaakceptuj Politykę prywatności",
-    "joiningCompany": "Dołączasz do {{company}}"
+    "joiningCompany": "Dołączasz do {{company}}",
+    "inviteOnly": "Konta zakładane są tylko na zaproszenie. Poproś właściciela firmy o link z zaproszeniem."
   },
   "dashboard": {
     "dailyRecord": "Wpis dzienny",

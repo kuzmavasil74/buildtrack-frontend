@@ -43,6 +43,24 @@ const Register = () => {
     }
     setLoading(false)
   }
+  // Accounts are created only from an invitation link.
+  if (!inviteToken) {
+    return (
+      <div className="min-h-screen py-14 px-4 bg-gray-100 flex items-center justify-center">
+        <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md text-center">
+          <div className="flex justify-end mb-2">
+            <LanguageSwitcher />
+          </div>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800">{t('auth.register')}</h2>
+          <p className="text-gray-600 mb-6">{t('auth.inviteOnly')}</p>
+          <Link to="/login" className="text-blue-500 hover:underline text-sm">
+            {t('auth.login')}
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen py-14 px-4 bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">

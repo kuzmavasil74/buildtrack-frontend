@@ -43,7 +43,8 @@
     "agreePrefix": "I have read and agree to the",
     "privacyLink": "Privacy Policy",
     "mustAgree": "Please accept the Privacy Policy to continue",
-    "joiningCompany": "You are joining {{company}}"
+    "joiningCompany": "You are joining {{company}}",
+    "inviteOnly": "Accounts are created by invitation only. Ask your company owner for an invitation link."
   },
   "dashboard": {
     "dailyRecord": "Daily Record",

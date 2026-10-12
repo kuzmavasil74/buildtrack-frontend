@@ -20,13 +20,8 @@ const Main = () => {
           >
             {t('auth.login')}
           </button>
-          <button
-            onClick={() => navigate('/register')}
-            className="bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition font-semibold"
-          >
-            {t('auth.register')}
-          </button>
         </div>
+        <p className="mt-4 text-sm text-gray-500">{t('auth.inviteOnly')}</p>
         <Link to="/privacy" className="inline-block mt-8 text-xs text-gray-400 hover:underline">
           {t('common.privacy')}
         </Link>
