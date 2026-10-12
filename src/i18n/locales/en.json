@@ -13,7 +13,9 @@
     "receipts": "Receipts",
     "logout": "Logout",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "team": "Team",
+    "admin": "Admin"
   },
   "auth": {
     "login": "Login",
@@ -37,7 +39,11 @@
     "resetting": "Resetting...",
     "resetSuccess": "Password updated. Redirecting to login...",
     "invalidOrExpiredToken": "This reset link is invalid or has expired.",
-    "backToLogin": "Back to login"
+    "backToLogin": "Back to login",
+    "agreePrefix": "I have read and agree to the",
+    "privacyLink": "Privacy Policy",
+    "mustAgree": "Please accept the Privacy Policy to continue",
+    "joiningCompany": "You are joining {{company}}"
   },
   "dashboard": {
     "dailyRecord": "Daily Record",
@@ -185,6 +191,65 @@
     "edit": "Edit",
     "save": "Save",
     "saving": "Saving...",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "privacy": "Privacy Policy"
+  },
+  "team": {
+    "title": "Team",
+    "companyName": "Company name",
+    "save": "Save",
+    "saved": "Saved",
+    "members": "Members",
+    "you": "you",
+    "roleOwner": "Owner",
+    "roleForeman": "Foreman",
+    "lastSeen": "Last active {{when}}",
+    "neverSeen": "Not active yet",
+    "remove": "Remove",
+    "confirmRemove": "Remove {{email}} from the company? Records and receipts they entered stay with the company.",
+    "inviteTitle": "Invite a foreman",
+    "inviteHint": "A foreman sees the company sites, crews, records and receipts, adds records and receipts and edits their own records. They cannot change sites or crews, see payroll or manage the team.",
+    "emailPlaceholder": "Foreman email",
+    "send": "Send invitation",
+    "sending": "Sending...",
+    "linkReady": "Invitation created. Send this link to {{email}}:",
+    "emailed": "We also emailed it.",
+    "notEmailed": "It was not emailed, so send it yourself (e.g. in Telegram or WhatsApp).",
+    "copy": "Copy",
+    "copied": "Copied",
+    "pending": "Pending invitations",
+    "expires": "valid until {{date}}",
+    "revoke": "Revoke",
+    "noPending": "No pending invitations",
+    "alreadyMember": "This person is already in your company"
+  },
+  "invite": {
+    "title": "Invitation",
+    "invalid": "This invitation is no longer valid. Ask the company owner for a new one.",
+    "body": "{{company}} invited {{email}} to join the company as a foreman.",
+    "accept": "Join the company",
+    "accepting": "Joining...",
+    "register": "Create an account",
+    "login": "Sign in to accept",
+    "wrongAccount": "You are signed in as {{current}}, but this invitation is for {{email}}.",
+    "logout": "Sign out",
+    "ownerHasMembers": "Your own company still has members, so you cannot join another one."
+  },
+  "admin": {
+    "title": "Admin",
+    "users": "Users",
+    "companies": "Companies",
+    "active7d": "Active in 7 days",
+    "active30d": "Active in 30 days",
+    "records": "Records",
+    "receipts": "Receipts",
+    "email": "Email",
+    "company": "Company",
+    "role": "Role",
+    "registered": "Signed up",
+    "lastSeen": "Last active",
+    "sites": "Sites",
+    "never": "never",
+    "unknown": "before tracking"
   }
 }

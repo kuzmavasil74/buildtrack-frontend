@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { getSites, getCrews, getMonthlyStats } from '../api/api.js'
 import Navbar from '../components/Navbar.jsx'
+import { useMe, isOwner } from '../context/me.js'
 
 const StatCard = ({ label, value }) => (
   <div className="bg-white rounded-xl border border-gray-200 shadow-sm px-5 py-4">
@@ -22,6 +23,7 @@ const ActionLink = ({ to, label, color }) => (
 
 export default function Home() {
   const { t } = useTranslation()
+  const owner = isOwner(useMe())
   const [sitesCount, setSitesCount] = useState(0)
   const [crewsCount, setCrewsCount] = useState(0)
   const [recordsThisMonth, setRecordsThisMonth] = useState(0)
@@ -62,8 +64,14 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <ActionLink to="/dashboard" label={t('nav.newRecord')} color="bg-blue-600" />
             <ActionLink to="/records" label={t('nav.records')} color="bg-emerald-600" />
-            <ActionLink to="/crews" label={t('nav.crews')} color="bg-purple-600" />
-            <ActionLink to="/sites" label={t('nav.sites')} color="bg-amber-600" />
+            {owner ? (
+              <>
+                <ActionLink to="/crews" label={t('nav.crews')} color="bg-purple-600" />
+                <ActionLink to="/sites" label={t('nav.sites')} color="bg-amber-600" />
+              </>
+            ) : (
+              <ActionLink to="/receipts" label={t('nav.receipts')} color="bg-purple-600" />
+            )}
           </div>
         </div>
       </div>

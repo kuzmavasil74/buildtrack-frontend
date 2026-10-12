@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { logout as apiLogout } from '../api/api.js'
 import LanguageSwitcher from './LanguageSwitcher.jsx'
+import { useMe, isOwner } from '../context/me.js'
 
 const linkClasses = (active) =>
   `block whitespace-nowrap px-2.5 py-2 rounded-lg text-sm font-medium transition ${
@@ -14,15 +15,20 @@ const Navbar = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const me = useMe()
+  const owner = isOwner(me)
 
+  // Foremen only get the pages they can use; the API enforces the same.
   const links = [
     { to: '/dashboard', label: t('nav.newRecord') },
     { to: '/records', label: t('nav.records') },
-    { to: '/crews', label: t('nav.crews') },
-    { to: '/payroll', label: t('nav.payroll') },
-    { to: '/sites', label: t('nav.sites') },
+    owner && { to: '/crews', label: t('nav.crews') },
+    owner && { to: '/payroll', label: t('nav.payroll') },
+    owner && { to: '/sites', label: t('nav.sites') },
     { to: '/receipts', label: t('nav.receipts') },
-  ]
+    owner && { to: '/team', label: t('nav.team') },
+    me?.isAdmin && { to: '/admin', label: t('nav.admin') },
+  ].filter(Boolean)
 
   const handleLogout = async () => {
     setOpen(false)

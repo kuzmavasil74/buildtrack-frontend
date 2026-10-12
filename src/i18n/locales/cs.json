@@ -13,7 +13,9 @@
     "receipts": "Účtenky",
     "logout": "Odhlásit",
     "openMenu": "Otevřít menu",
-    "closeMenu": "Zavřít menu"
+    "closeMenu": "Zavřít menu",
+    "team": "Tým",
+    "admin": "Admin"
   },
   "auth": {
     "login": "Přihlásit se",
@@ -37,7 +39,11 @@
     "resetting": "Obnovování...",
     "resetSuccess": "Heslo změněno. Přesměrování na přihlášení...",
     "invalidOrExpiredToken": "Tento odkaz je neplatný nebo vypršel.",
-    "backToLogin": "Zpět na přihlášení"
+    "backToLogin": "Zpět na přihlášení",
+    "agreePrefix": "Přečetl(a) jsem si a souhlasím se",
+    "privacyLink": "Zásadami ochrany osobních údajů",
+    "mustAgree": "Pro pokračování přijměte Zásady ochrany osobních údajů",
+    "joiningCompany": "Připojujete se k {{company}}"
   },
   "dashboard": {
     "dailyRecord": "Denní záznam",
@@ -192,6 +198,65 @@
     "edit": "Upravit",
     "save": "Uložit",
     "saving": "Ukládání...",
-    "cancel": "Zrušit"
+    "cancel": "Zrušit",
+    "privacy": "Zásady ochrany osobních údajů"
+  },
+  "team": {
+    "title": "Tým",
+    "companyName": "Název firmy",
+    "save": "Uložit",
+    "saved": "Uloženo",
+    "members": "Členové",
+    "you": "vy",
+    "roleOwner": "Vlastník",
+    "roleForeman": "Mistr",
+    "lastSeen": "Naposledy aktivní {{when}}",
+    "neverSeen": "Zatím se nepřihlásil(a)",
+    "remove": "Odebrat",
+    "confirmRemove": "Odebrat {{email}} z firmy? Záznamy a účtenky, které přidal(a), zůstanou ve firmě.",
+    "inviteTitle": "Pozvat mistra",
+    "inviteHint": "Mistr vidí stavby, party, záznamy a účtenky firmy, přidává záznamy a účtenky a upravuje své záznamy. Nemůže měnit stavby ani party, vidět mzdy ani spravovat tým.",
+    "emailPlaceholder": "Email mistra",
+    "send": "Odeslat pozvánku",
+    "sending": "Odesílání...",
+    "linkReady": "Pozvánka vytvořena. Pošlete tento odkaz na {{email}}:",
+    "emailed": "Poslali jsme ji také e-mailem.",
+    "notEmailed": "E-mail nebyl odeslán, pošlete odkaz sami (např. přes Telegram nebo WhatsApp).",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "pending": "Čekající pozvánky",
+    "expires": "platná do {{date}}",
+    "revoke": "Zrušit",
+    "noPending": "Žádné čekající pozvánky",
+    "alreadyMember": "Tato osoba už je ve vaší firmě"
+  },
+  "invite": {
+    "title": "Pozvánka",
+    "invalid": "Tato pozvánka už neplatí. Požádejte vlastníka firmy o novou.",
+    "body": "{{company}} zve {{email}} do firmy jako mistra.",
+    "accept": "Připojit se k firmě",
+    "accepting": "Připojování...",
+    "register": "Vytvořit účet",
+    "login": "Přihlásit se a přijmout",
+    "wrongAccount": "Jste přihlášeni jako {{current}}, ale pozvánka je pro {{email}}.",
+    "logout": "Odhlásit",
+    "ownerHasMembers": "Vaše vlastní firma má ještě členy, proto se nemůžete připojit k jiné."
+  },
+  "admin": {
+    "title": "Admin",
+    "users": "Uživatelé",
+    "companies": "Firmy",
+    "active7d": "Aktivní za 7 dní",
+    "active30d": "Aktivní za 30 dní",
+    "records": "Záznamy",
+    "receipts": "Účtenky",
+    "email": "Email",
+    "company": "Firma",
+    "role": "Role",
+    "registered": "Registrace",
+    "lastSeen": "Poslední aktivita",
+    "sites": "Stavby",
+    "never": "nikdy",
+    "unknown": "před sledováním"
   }
 }

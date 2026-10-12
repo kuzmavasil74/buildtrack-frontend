@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import { Suspense, lazy } from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
@@ -17,12 +17,17 @@ const Crews = lazy(() => import('./pages/Crews.jsx'))
 const Sites = lazy(() => import('./pages/Sites.jsx'))
 const Payroll = lazy(() => import('./pages/Payroll.jsx'))
 const Receipts = lazy(() => import('./pages/Receipts.jsx'))
+const Team = lazy(() => import('./pages/Team.jsx'))
+const Admin = lazy(() => import('./pages/Admin.jsx'))
+const Invite = lazy(() => import('./pages/Invite.jsx'))
+const Privacy = lazy(() => import('./pages/Privacy.jsx'))
 
-const protectedPage = (Page) => (
-  <ProtectedRoute>
+const protectedPage = (Page, access = {}) => (
+  <ProtectedRoute {...access}>
     <Page />
   </ProtectedRoute>
 )
+const OWNER = { ownerOnly: true }
 
 const PageLoading = () => {
   const { t } = useTranslation()
@@ -43,13 +48,17 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/invite" element={<Invite />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/home" element={protectedPage(Home)} />
           <Route path="/dashboard" element={protectedPage(Dashboard)} />
           <Route path="/records" element={protectedPage(Records)} />
-          <Route path="/crews" element={protectedPage(Crews)} />
-          <Route path="/sites" element={protectedPage(Sites)} />
-          <Route path="/payroll" element={protectedPage(Payroll)} />
+          <Route path="/crews" element={protectedPage(Crews, OWNER)} />
+          <Route path="/sites" element={protectedPage(Sites, OWNER)} />
+          <Route path="/payroll" element={protectedPage(Payroll, OWNER)} />
           <Route path="/receipts" element={protectedPage(Receipts)} />
+          <Route path="/team" element={protectedPage(Team, OWNER)} />
+          <Route path="/admin" element={protectedPage(Admin, { adminOnly: true })} />
         </Routes>
       </Suspense>
     </BrowserRouter>

@@ -13,7 +13,9 @@
     "receipts": "Paragony",
     "logout": "Wyloguj",
     "openMenu": "Otwórz menu",
-    "closeMenu": "Zamknij menu"
+    "closeMenu": "Zamknij menu",
+    "team": "Zespół",
+    "admin": "Admin"
   },
   "auth": {
     "login": "Zaloguj się",
@@ -37,7 +39,11 @@
     "resetting": "Resetowanie...",
     "resetSuccess": "Hasło zaktualizowane. Przekierowanie do logowania...",
     "invalidOrExpiredToken": "Ten link jest nieprawidłowy lub wygasł.",
-    "backToLogin": "Powrót do logowania"
+    "backToLogin": "Powrót do logowania",
+    "agreePrefix": "Przeczytałem(-am) i akceptuję",
+    "privacyLink": "Politykę prywatności",
+    "mustAgree": "Aby kontynuować, zaakceptuj Politykę prywatności",
+    "joiningCompany": "Dołączasz do {{company}}"
   },
   "dashboard": {
     "dailyRecord": "Wpis dzienny",
@@ -193,6 +199,65 @@
     "edit": "Edytuj",
     "save": "Zapisz",
     "saving": "Zapisywanie...",
-    "cancel": "Anuluj"
+    "cancel": "Anuluj",
+    "privacy": "Polityka prywatności"
+  },
+  "team": {
+    "title": "Zespół",
+    "companyName": "Nazwa firmy",
+    "save": "Zapisz",
+    "saved": "Zapisano",
+    "members": "Członkowie",
+    "you": "ty",
+    "roleOwner": "Właściciel",
+    "roleForeman": "Brygadzista",
+    "lastSeen": "Ostatnio aktywny(-a) {{when}}",
+    "neverSeen": "Jeszcze nie logował(-a) się",
+    "remove": "Usuń",
+    "confirmRemove": "Usunąć {{email}} z firmy? Wpisy i paragony dodane przez tę osobę zostaną w firmie.",
+    "inviteTitle": "Zaproś brygadzistę",
+    "inviteHint": "Brygadzista widzi budowy, brygady, wpisy i paragony firmy, dodaje wpisy i paragony oraz edytuje własne wpisy. Nie może zmieniać budów ani brygad, widzieć wypłat ani zarządzać zespołem.",
+    "emailPlaceholder": "Email brygadzisty",
+    "send": "Wyślij zaproszenie",
+    "sending": "Wysyłanie...",
+    "linkReady": "Zaproszenie utworzone. Wyślij ten link do {{email}}:",
+    "emailed": "Wysłaliśmy go też e-mailem.",
+    "notEmailed": "Nie wysłano e-maila, więc przekaż link samodzielnie (np. przez Telegram lub WhatsApp).",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "pending": "Oczekujące zaproszenia",
+    "expires": "ważne do {{date}}",
+    "revoke": "Anuluj",
+    "noPending": "Brak oczekujących zaproszeń",
+    "alreadyMember": "Ta osoba jest już w twojej firmie"
+  },
+  "invite": {
+    "title": "Zaproszenie",
+    "invalid": "To zaproszenie jest już nieważne. Poproś właściciela firmy o nowe.",
+    "body": "{{company}} zaprasza {{email}} do firmy jako brygadzistę.",
+    "accept": "Dołącz do firmy",
+    "accepting": "Dołączanie...",
+    "register": "Załóż konto",
+    "login": "Zaloguj się, aby przyjąć",
+    "wrongAccount": "Jesteś zalogowany(-a) jako {{current}}, a zaproszenie jest dla {{email}}.",
+    "logout": "Wyloguj",
+    "ownerHasMembers": "Twoja własna firma ma jeszcze członków, więc nie możesz dołączyć do innej."
+  },
+  "admin": {
+    "title": "Admin",
+    "users": "Użytkownicy",
+    "companies": "Firmy",
+    "active7d": "Aktywni w 7 dni",
+    "active30d": "Aktywni w 30 dni",
+    "records": "Wpisy",
+    "receipts": "Paragony",
+    "email": "Email",
+    "company": "Firma",
+    "role": "Rola",
+    "registered": "Rejestracja",
+    "lastSeen": "Ostatnia aktywność",
+    "sites": "Budowy",
+    "never": "nigdy",
+    "unknown": "sprzed śledzenia"
   }
 }

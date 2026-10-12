@@ -12,7 +12,7 @@ const api = axios.create({
 })
 
 // Pages where a 401 is expected and handled by the page itself.
-const PUBLIC_PATHS = ['/login', '/register', '/forgot-password', '/reset-password']
+const PUBLIC_PATHS = ['/login', '/register', '/forgot-password', '/reset-password', '/invite', '/privacy']
 
 // If the session ends while someone is working, send them to the login form
 // instead of leaving pages that silently fail to load.
@@ -32,8 +32,8 @@ export const login = async (email, password) => {
   return await api.post('/auth/login', { email, password })
 }
 
-export const register = async (email, password) => {
-  return await api.post('/auth/register', { email, password })
+export const register = async (email, password, inviteToken) => {
+  return await api.post('/auth/register', { email, password, inviteToken })
 }
 
 export const forgotPassword = async (email) => {
@@ -144,4 +144,29 @@ export const downloadPayrollCsv = async ({ from, to } = {}) => {
   if (from) params.from = from
   if (to) params.to = to
   return await api.get('/records/payroll.csv', { params, responseType: 'blob' })
+}
+
+export const getCompany = async () => {
+  return await api.get('/company')
+}
+export const renameCompany = async (name) => {
+  return await api.put('/company', { name })
+}
+export const inviteMember = async (email) => {
+  return await api.post('/company/invites', { email })
+}
+export const revokeInvite = async (id) => {
+  return await api.delete(`/company/invites/${id}`)
+}
+export const removeMember = async (id) => {
+  return await api.delete(`/company/members/${id}`)
+}
+export const previewInvite = async (token) => {
+  return await api.get(`/company/invites/${encodeURIComponent(token)}`)
+}
+export const acceptInvite = async (token) => {
+  return await api.post('/company/invites/accept', { token })
+}
+export const getAdminStats = async () => {
+  return await api.get('/admin/stats')
 }

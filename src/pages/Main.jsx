@@ -1,5 +1,4 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx'
 
@@ -28,6 +27,9 @@ const Main = () => {
             {t('auth.register')}
           </button>
         </div>
+        <Link to="/privacy" className="inline-block mt-8 text-xs text-gray-400 hover:underline">
+          {t('common.privacy')}
+        </Link>
       </div>
     </div>
   )

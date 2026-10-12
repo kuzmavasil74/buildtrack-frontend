@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { login } from '../api/api.js'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { safeNextPath } from '../context/me.js'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx'
 
 const Login = () => {
-  const [email, setEmail] = useState('')
+  const [searchParams] = useSearchParams()
+  // Set when the login form was opened from somewhere, e.g. an invitation.
+  const next = safeNextPath(searchParams.get('next'))
+  const [email, setEmail] = useState(searchParams.get('email') || '')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -17,7 +21,7 @@ const Login = () => {
     setLoading(true)
     try {
       await login(email, password)
-      navigate('/home')
+      navigate(next || '/home')
     } catch (error) {
       setError(error.response?.data?.message || error.message)
     }
@@ -67,6 +71,11 @@ const Login = () => {
           </a>
         </p>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <p className="text-center text-xs text-gray-400 mt-6">
+          <Link to="/privacy" className="hover:underline">
+            {t('common.privacy')}
+          </Link>
+        </p>
       </div>
     </div>
   )

@@ -12,6 +12,7 @@ import {
   getWorkerDirectory,
 } from '../api/api.js'
 import Navbar from '../components/Navbar.jsx'
+import { useMe, canEditRecord } from '../context/me.js'
 import RecordForm from '../components/RecordForm.jsx'
 import { LOCALE_MAP } from '../i18n/config.js'
 import { monthRange, sameMonth } from '../utils/monthRange.js'
@@ -28,6 +29,7 @@ const RecordCard = ({
   locale,
 }) => {
   const [editing, setEditing] = useState(false)
+  const canEdit = canEditRecord(useMe(), record)
   const crew = crews.find((c) => c.id === record.crewId)
 
   const handleSave = async (payload) => {
@@ -66,6 +68,7 @@ const RecordCard = ({
             })}
           </p>
         </div>
+        {canEdit && (
         <div className="shrink-0 flex gap-2">
           <button
             onClick={() => setEditing(true)}
@@ -80,6 +83,7 @@ const RecordCard = ({
             {t('common.delete')}
           </button>
         </div>
+        )}
       </div>
 
       <div className="flex gap-2 flex-wrap mb-3">
