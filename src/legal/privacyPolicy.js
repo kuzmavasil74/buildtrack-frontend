@@ -1,7 +1,7 @@
 // The app is run privately by one person, who is therefore the controller.
 // A value written in [BRACKETS] is a placeholder, shown highlighted on the page.
 export const CONTROLLER = {
-  name: '[FULL NAME]',
+  name: 'Vasyl Kuzma',
   country: 'Česká republika',
   email: 'kuzmavasil.v@gmail.com',
 }
